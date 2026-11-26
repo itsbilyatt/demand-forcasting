@@ -1,0 +1,398 @@
+{
+  "project_root": "C:\\Users\\Prajyot\\Downloads\\mks\\demand-forcasting",
+  "input_directory": "C:\\Users\\Prajyot\\Downloads\\mks\\demand-forcasting\\data\\student_data",
+  "cleaned_output_directory": "C:\\Users\\Prajyot\\Downloads\\mks\\demand-forcasting\\outputs\\cleaned",
+  "quality_report_directory": "C:\\Users\\Prajyot\\Downloads\\mks\\demand-forcasting\\outputs\\data_quality",
+  "price_correction_log": "C:\\Users\\Prajyot\\Downloads\\mks\\demand-forcasting\\outputs\\data_quality\\price_correction_log.csv",
+  "file_metrics": {
+    "train.csv": {
+      "input_rows": 248248,
+      "output_rows": 244566,
+      "record_id_duplicate_groups": 3682,
+      "record_id_duplicate_rows_removed": 3682,
+      "record_id_conflicting_groups": 732,
+      "date_year_month_mismatches": 276,
+      "outside_expected_period_rows": 30,
+      "rows_with_missing_units": 3544,
+      "valid_composite_key_rows": 243829,
+      "valid_composite_key_duplicates": 0,
+      "expected_rows": 248248
+    },
+    "test.csv": {
+      "input_rows": 58219,
+      "output_rows": 58219,
+      "outside_expected_period_rows": 0,
+      "duplicate_forecast_key_rows": 0,
+      "expected_rows": 58219
+    },
+    "sku_master.csv": {
+      "input_rows": 601,
+      "output_rows": 601,
+      "duplicate_sku_id_rows": 0,
+      "expected_rows": 601
+    },
+    "macro_indicators.csv": {
+      "input_rows": 114,
+      "output_rows": 114,
+      "expected_rows": 114
+    },
+    "events_calendar.csv": {
+      "input_rows": 68,
+      "output_rows": 68,
+      "expected_rows": 68
+    },
+    "inventory_stockouts.csv": {
+      "input_rows": 5830,
+      "output_rows": 5830,
+      "expected_rows": 5830
+    },
+    "sample_submission.csv": {
+      "input_rows": 5,
+      "output_rows": 5,
+      "expected_rows": 5
+    }
+  },
+  "issues": [
+    {
+      "file": "sku_master.csv",
+      "type": "missing:EOL_Date",
+      "affected_rows": 592,
+      "severity": "review",
+      "action": "Preserved as missing; do not infer zero or fabricate a value.",
+      "examples": "[]"
+    },
+    {
+      "file": "sku_master.csv",
+      "type": "missing:Replaces_SKU",
+      "affected_rows": 592,
+      "severity": "review",
+      "action": "Preserved as missing; do not infer zero or fabricate a value.",
+      "examples": "[]"
+    },
+    {
+      "file": "train.csv",
+      "type": "missing:Product_Family",
+      "affected_rows": 1252,
+      "severity": "review",
+      "action": "Preserved as missing; do not infer zero or fabricate a value.",
+      "examples": "[]"
+    },
+    {
+      "file": "train.csv",
+      "type": "missing:SKU_Description",
+      "affected_rows": 996,
+      "severity": "review",
+      "action": "Preserved as missing; do not infer zero or fabricate a value.",
+      "examples": "[]"
+    },
+    {
+      "file": "train.csv",
+      "type": "missing:Region",
+      "affected_rows": 745,
+      "severity": "review",
+      "action": "Preserved as missing; do not infer zero or fabricate a value.",
+      "examples": "[]"
+    },
+    {
+      "file": "train.csv",
+      "type": "missing:Units_Sold",
+      "affected_rows": 3362,
+      "severity": "review",
+      "action": "Preserved as missing; do not infer zero or fabricate a value.",
+      "examples": "[]"
+    },
+    {
+      "file": "train.csv",
+      "type": "missing:Revenue_USD",
+      "affected_rows": 383,
+      "severity": "review",
+      "action": "Preserved as missing; do not infer zero or fabricate a value.",
+      "examples": "[]"
+    },
+    {
+      "file": "train.csv",
+      "type": "duplicate:Record_ID_rows",
+      "affected_rows": 7364,
+      "severity": "review",
+      "action": "Kept only the row with the latest Load_Timestamp for each nonblank Record_ID.",
+      "examples": "[]"
+    },
+    {
+      "file": "train.csv",
+      "type": "duplicate:Record_ID_conflicting_groups",
+      "affected_rows": 732,
+      "severity": "review",
+      "action": "Latest timestamp is selected; inspect the retained raw values for material corrections.",
+      "examples": "[]"
+    },
+    {
+      "file": "train.csv",
+      "type": "date_year_month_mismatch",
+      "affected_rows": 276,
+      "severity": "corrected",
+      "action": "Date is authoritative; Year and Month are recomputed from parsed Date.",
+      "examples": "[{\"Date_Raw\": \"2019-01\", \"Year_Raw\": \"2019\", \"Month_Raw\": \"2\", \"Record_ID\": \"CEL-0045443\"}, {\"Date_Raw\": \"2019-01\", \"Year_Raw\": \"2019\", \"Month_Raw\": \"2\", \"Record_ID\": \"CEL-0099411\"}, {\"Date_Raw\": \"2019-02\", \"Year_Raw\": \"2019\", \"Month_Raw\": \"3\", \"Record_ID\": \"CEL-0112351\"}, {\"Date_Raw\": \"2019-02\", \"Year_Raw\": \"2019\", \"Month_Raw\": \"3\", \"Record_ID\": \"CEL-0233623\"}, {\"Date_Raw\": \"2019-02\", \"Year_Raw\": \"2019\", \"Month_Raw\": \"3\", \"Record_ID\": \"CEL-0032570\"}]"
+    },
+    {
+      "file": "train.csv",
+      "type": "date_outside_expected_window",
+      "affected_rows": 30,
+      "severity": "error",
+      "action": "Preserved Date; exclude from historical modeling only after review against source records.",
+      "examples": "[{\"Date_Raw\": \"2062-01\", \"Year_Raw\": \"2026\", \"Month_Raw\": \"1\", \"Record_ID\": \"CEL-0207046\"}, {\"Date_Raw\": \"2062-01\", \"Year_Raw\": \"2026\", \"Month_Raw\": \"1\", \"Record_ID\": \"CEL-0243867\"}, {\"Date_Raw\": \"2062-02\", \"Year_Raw\": \"2026\", \"Month_Raw\": \"2\", \"Record_ID\": \"CEL-0104515\"}, {\"Date_Raw\": \"2062-02\", \"Year_Raw\": \"2026\", \"Month_Raw\": \"2\", \"Record_ID\": \"CEL-0036690\"}, {\"Date_Raw\": \"2062-02\", \"Year_Raw\": \"2026\", \"Month_Raw\": \"2\", \"Record_ID\": \"CEL-0110229\"}]"
+    },
+    {
+      "file": "train.csv",
+      "type": "master_conflict:Business_Unit",
+      "affected_rows": 524,
+      "severity": "review",
+      "action": "Compared with sku_master.csv; conflicts are preserved or corrected only under the documented rule.",
+      "examples": "[{\"SKU_ID\": \"PMP-004\", \"Business_Unit\": \"Advanced Manufacturing\"}, {\"SKU_ID\": \"PMP-004\", \"Business_Unit\": \"Advanced Manufacturing\"}, {\"SKU_ID\": \"PMP-004\", \"Business_Unit\": \"Advanced Manufacturing\"}, {\"SKU_ID\": \"PMP-004\", \"Business_Unit\": \"Advanced Manufacturing\"}, {\"SKU_ID\": \"PMP-004\", \"Business_Unit\": \"Advanced Manufacturing\"}]"
+    },
+    {
+      "file": "train.csv",
+      "type": "missing_or_dash:Units_Sold",
+      "affected_rows": 3544,
+      "severity": "error",
+      "action": "Kept as missing; never replaced with zero because zero means no order.",
+      "examples": "[]"
+    },
+    {
+      "file": "train.csv",
+      "type": "negative_Units_Sold",
+      "affected_rows": 491,
+      "severity": "error",
+      "action": "Preserved the parsed value and flagged for review.",
+      "examples": "[]"
+    },
+    {
+      "file": "train.csv",
+      "type": "unresolved_zero_price",
+      "affected_rows": 10,
+      "severity": "error",
+      "action": "Changed invalid zero price to missing; requires source or event review.",
+      "examples": "[]"
+    },
+    {
+      "file": "train.csv",
+      "type": "price_deviation_from_same_sku_month",
+      "affected_rows": 50,
+      "severity": "review",
+      "action": "Not auto-corrected; review against event-calendar surcharges and source pricing.",
+      "examples": "[{\"Record_ID\": \"CEL-0112973\", \"Date\": \"2019-02\", \"SKU_ID\": \"HYD-019\", \"Region\": \"Europe\", \"Unit_Price_USD_Raw\": \"1436.43\"}, {\"Record_ID\": \"CEL-0089067\", \"Date\": \"2019-05\", \"SKU_ID\": \"ELA-047\", \"Region\": \"Europe\", \"Unit_Price_USD_Raw\": \"484.17\"}, {\"Record_ID\": \"CEL-0203410\", \"Date\": \"2019-07\", \"SKU_ID\": \"PTC-061\", \"Region\": \"India\", \"Unit_Price_USD_Raw\": \"966.8\"}, {\"Record_ID\": \"CEL-0012087\", \"Date\": \"2020-02\", \"SKU_ID\": \"BSS-029\", \"Region\": \"India\", \"Unit_Price_USD_Raw\": \"341.52\"}, {\"Record_ID\": \"CEL-0009682\", \"Date\": \"2020-04\", \"SKU_ID\": \"BSS-023\", \"Region\": \"India\", \"Unit_Price_USD_Raw\": \"486.15\"}]"
+    },
+    {
+      "file": "train.csv",
+      "type": "revenue_not_equal_units_times_price",
+      "affected_rows": 1716,
+      "severity": "corrected",
+      "action": "Recomputed Revenue_USD where Units_Sold and cleaned Unit_Price_USD are available; raw value retained.",
+      "examples": "[{\"Record_ID\": \"CEL-0136542\", \"Units_Sold_Raw\": \"153\", \"Unit_Price_USD_Raw\": \"67308.0\", \"Revenue_USD_Raw\": \"102981.24\"}, {\"Record_ID\": \"CEL-0058508\", \"Units_Sold_Raw\": \"30\", \"Unit_Price_USD_Raw\": \"256.4\", \"Revenue_USD_Raw\": \"6792.0\"}, {\"Record_ID\": \"CEL-0094177\", \"Units_Sold_Raw\": \"790\", \"Unit_Price_USD_Raw\": \"846.81\", \"Revenue_USD_Raw\": \"66897.99\"}, {\"Record_ID\": \"CEL-0025988\", \"Units_Sold_Raw\": \"48\", \"Unit_Price_USD_Raw\": \"26173.0\", \"Revenue_USD_Raw\": \"12563.04\"}, {\"Record_ID\": \"CEL-0075665\", \"Units_Sold_Raw\": \"190\", \"Unit_Price_USD_Raw\": \"1935.22\", \"Revenue_USD_Raw\": \"36769.18\"}]"
+    },
+    {
+      "file": "test.csv",
+      "type": "master_conflict:Business_Unit",
+      "affected_rows": 114,
+      "severity": "review",
+      "action": "Compared with sku_master.csv; conflicts are preserved or corrected only under the documented rule.",
+      "examples": "[{\"SKU_ID\": \"PMP-004\", \"Business_Unit\": \"Advanced Manufacturing\"}, {\"SKU_ID\": \"PMP-004\", \"Business_Unit\": \"Advanced Manufacturing\"}, {\"SKU_ID\": \"PMP-004\", \"Business_Unit\": \"Advanced Manufacturing\"}, {\"SKU_ID\": \"PMP-004\", \"Business_Unit\": \"Advanced Manufacturing\"}, {\"SKU_ID\": \"PMP-004\", \"Business_Unit\": \"Advanced Manufacturing\"}]"
+    },
+    {
+      "file": "macro_indicators.csv",
+      "type": "missing:Vehicle_Inventory_Days",
+      "affected_rows": 1,
+      "severity": "review",
+      "action": "Preserved as missing; do not infer zero or fabricate a value.",
+      "examples": "[]"
+    },
+    {
+      "file": "macro_indicators.csv",
+      "type": "missing:New_Vehicle_Orders_Index",
+      "affected_rows": 1,
+      "severity": "review",
+      "action": "Preserved as missing; do not infer zero or fabricate a value.",
+      "examples": "[]"
+    },
+    {
+      "file": "macro_indicators.csv",
+      "type": "missing:Industrial_Util_Rate_Pct",
+      "affected_rows": 1,
+      "severity": "review",
+      "action": "Preserved as missing; do not infer zero or fabricate a value.",
+      "examples": "[]"
+    },
+    {
+      "file": "macro_indicators.csv",
+      "type": "missing:Fuel_Price_Index",
+      "affected_rows": 1,
+      "severity": "review",
+      "action": "Preserved as missing; do not infer zero or fabricate a value.",
+      "examples": "[]"
+    },
+    {
+      "file": "macro_indicators.csv",
+      "type": "missing:EV_Adoption_Index",
+      "affected_rows": 1,
+      "severity": "review",
+      "action": "Preserved as missing; do not infer zero or fabricate a value.",
+      "examples": "[]"
+    },
+    {
+      "file": "macro_indicators.csv",
+      "type": "duplicate:Date",
+      "affected_rows": 2,
+      "severity": "review",
+      "action": "Exact duplicate rows are removed; conflicting month rows are retained and flagged.",
+      "examples": "[{\"Date\": \"2022-06\"}, {\"Date\": \"2022-06\"}]"
+    },
+    {
+      "file": "events_calendar.csv",
+      "type": "missing:End_Date",
+      "affected_rows": 1,
+      "severity": "review",
+      "action": "Preserved as missing; do not infer zero or fabricate a value.",
+      "examples": "[]"
+    },
+    {
+      "file": "inventory_stockouts.csv",
+      "type": "stockout_fill_rate_mismatch",
+      "affected_rows": 4757,
+      "severity": "review",
+      "action": "Preserved source fill rate; compare with shipped divided by requested plus carried-in.",
+      "examples": "[]"
+    }
+  ],
+  "corrections": [
+    {
+      "file": "train.csv",
+      "type": "deduplicated:Record_ID",
+      "affected_rows": 3682,
+      "severity": "corrected",
+      "action": "Retained the latest Load_Timestamp; source row number breaks timestamp ties.",
+      "examples": "[]"
+    },
+    {
+      "file": "train.csv",
+      "type": "standardized_date:Date",
+      "affected_rows": 9821,
+      "severity": "corrected",
+      "action": "Converted parseable dates to YYYY-MM for monthly data; retained the raw value.",
+      "examples": "[]"
+    },
+    {
+      "file": "train.csv",
+      "type": "recomputed_year_month_from_Date",
+      "affected_rows": 276,
+      "severity": "corrected",
+      "action": "Recomputed Year and Month from the authoritative Date field.",
+      "examples": "[]"
+    },
+    {
+      "file": "train.csv",
+      "type": "standardized:SKU_ID",
+      "affected_rows": 2942,
+      "severity": "corrected",
+      "action": "Normalized separators/casing/zero-padding only when the result exists in sku_master.csv.",
+      "examples": "[]"
+    },
+    {
+      "file": "train.csv",
+      "type": "standardized:Sales_Channel",
+      "affected_rows": 3683,
+      "severity": "corrected",
+      "action": "Applied a case/punctuation-insensitive match to an established canonical label.",
+      "examples": "[]"
+    },
+    {
+      "file": "train.csv",
+      "type": "standardized:Region",
+      "affected_rows": 6117,
+      "severity": "corrected",
+      "action": "Applied a case/punctuation-insensitive match to an established canonical label.",
+      "examples": "[]"
+    },
+    {
+      "file": "train.csv",
+      "type": "filled_from_sku_master:Product_Family",
+      "affected_rows": 1228,
+      "severity": "corrected",
+      "action": "Filled missing product attributes from the matching SKU_ID in sku_master.csv.",
+      "examples": "[]"
+    },
+    {
+      "file": "train.csv",
+      "type": "corrected_from_sku_master:Business_Unit",
+      "affected_rows": 524,
+      "severity": "corrected",
+      "action": "Replaced conflicting Business_Unit with the SKU master value; original retained in *_Raw.",
+      "examples": "[]"
+    },
+    {
+      "file": "train.csv",
+      "type": "filled_from_sku_master:SKU_Description",
+      "affected_rows": 982,
+      "severity": "corrected",
+      "action": "Filled missing product attributes from the matching SKU_ID in sku_master.csv.",
+      "examples": "[]"
+    },
+    {
+      "file": "train.csv",
+      "type": "imputed_zero_price_from_same_sku_month",
+      "affected_rows": 36342,
+      "severity": "corrected",
+      "action": "Replaced zero price only when a positive same-SKU/month peer exists; used the peer median.",
+      "examples": "[]"
+    },
+    {
+      "file": "train.csv",
+      "type": "corrected_price_factor_error",
+      "affected_rows": 949,
+      "severity": "corrected",
+      "action": "Corrected only clear 10x/100x/1000x or reciprocal outliers using the same-SKU/month peer median.",
+      "examples": "[]"
+    },
+    {
+      "file": "train.csv",
+      "type": "reconciled_revenue",
+      "affected_rows": 1716,
+      "severity": "corrected",
+      "action": "Recomputed mismatched revenue from cleaned Units_Sold and Unit_Price_USD; raw revenue retained.",
+      "examples": "[]"
+    },
+    {
+      "file": "test.csv",
+      "type": "corrected_from_sku_master:Business_Unit",
+      "affected_rows": 114,
+      "severity": "corrected",
+      "action": "Replaced conflicting Business_Unit with the SKU master value; original retained in *_Raw.",
+      "examples": "[]"
+    },
+    {
+      "file": "events_calendar.csv",
+      "type": "standardized_date:Start_Date",
+      "affected_rows": 20,
+      "severity": "corrected",
+      "action": "Converted parseable dates to YYYY-MM for monthly data; retained the raw value.",
+      "examples": "[]"
+    },
+    {
+      "file": "events_calendar.csv",
+      "type": "standardized_date:End_Date",
+      "affected_rows": 20,
+      "severity": "corrected",
+      "action": "Converted parseable dates to YYYY-MM for monthly data; retained the raw value.",
+      "examples": "[]"
+    }
+  ],
+  "assumptions": [
+    "Date is authoritative; Year and Month are recomputed from parseable Date values.",
+    "Duplicate Record_ID rows keep the latest Load_Timestamp; source row breaks timestamp ties.",
+    "Missing Units_Sold is not zero and remains missing; literal zero continues to mean no order.",
+    "Missing family, business unit, and SKU description may be filled from the matching SKU master row.",
+    "Conflicting Business_Unit values are corrected to sku_master.csv; original values are retained in *_Raw columns.",
+    "Price corrections are limited to same-SKU/month evidence and clear powers-of-ten errors; uncertain outliers are flagged.",
+    "Revenue is recomputed as Units_Sold times cleaned Unit_Price_USD when both are available; source value is retained in Revenue_USD_Raw.",
+    "Rows outside the stated history window are retained and flagged, not silently deleted.",
+    "Rows with unresolved composite-key duplicates are retained for review, not arbitrarily aggregated."
+  ]
+}

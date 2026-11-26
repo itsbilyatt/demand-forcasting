@@ -1,0 +1,611 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Demand forecast | Transcend</title>
+  <style>
+    :root {
+      color-scheme: light;
+      --ink: #172a3a;
+      --muted: #607387;
+      --line: #dce5eb;
+      --paper: #f3f7f9;
+      --card: #ffffff;
+      --navy: #14324a;
+      --teal: #137c78;
+      --blue: #3876a8;
+      --gold: #d59b32;
+      --shadow: 0 12px 32px rgba(20, 50, 74, .07);
+    }
+    * { box-sizing: border-box; }
+    body {
+      margin: 0;
+      background: var(--paper);
+      color: var(--ink);
+      font: 14px/1.5 "Segoe UI", Arial, sans-serif;
+    }
+    header {
+      padding: 27px max(24px, calc((100% - 1440px) / 2));
+      background: var(--navy);
+      color: white;
+    }
+    .eyebrow {
+      color: #a8d7d2;
+      font-size: 11px;
+      font-weight: 700;
+      letter-spacing: .16em;
+      text-transform: uppercase;
+    }
+    h1 { margin: 4px 0; font-size: 26px; letter-spacing: -.02em; }
+    header p { margin: 0; color: #d0dde6; }
+    main { max-width: 1440px; margin: auto; padding: 22px 24px 42px; }
+    .toolbar, .panel, .kpi {
+      background: var(--card);
+      border: 1px solid var(--line);
+      border-radius: 12px;
+      box-shadow: var(--shadow);
+    }
+    .toolbar {
+      display: grid;
+      grid-template-columns: repeat(5, minmax(150px, 1fr));
+      gap: 14px;
+      align-items: end;
+      padding: 16px;
+    }
+    label { display: block; color: var(--muted); font-size: 12px; font-weight: 650; }
+    select, input {
+      width: 100%;
+      margin-top: 6px;
+      padding: 10px 11px;
+      border: 1px solid var(--line);
+      border-radius: 8px;
+      background: white;
+      color: var(--ink);
+      font: inherit;
+    }
+    .status { color: var(--muted); font-size: 12px; text-align: right; }
+    .kpis {
+      display: grid;
+      grid-template-columns: repeat(4, minmax(150px, 1fr));
+      gap: 14px;
+      margin: 16px 0;
+    }
+    .kpi { padding: 15px 17px; }
+    .kpi-label { color: var(--muted); font-size: 12px; }
+    .kpi-value { margin-top: 3px; font-size: 23px; font-weight: 720; letter-spacing: -.03em; }
+    .kpi-note { margin-top: 2px; color: var(--muted); font-size: 11px; }
+    .grid { display: grid; grid-template-columns: minmax(0, 1.65fr) minmax(280px, .85fr); gap: 16px; }
+    .panel { min-width: 0; padding: 17px; }
+    .panel h2 { margin: 0; font-size: 15px; }
+    .subtitle { margin: 3px 0 12px; color: var(--muted); font-size: 12px; }
+    svg { display: block; width: 100%; height: auto; overflow: visible; }
+    .axis { stroke: #dbe4e9; stroke-width: 1; }
+    .band { fill: rgba(19, 124, 120, .15); }
+    .trend { fill: none; stroke: var(--teal); stroke-width: 3; }
+    .bar { fill: var(--blue); }
+    .chart-label { fill: var(--muted); font: 11px "Segoe UI", Arial, sans-serif; }
+    .legend { display: flex; gap: 18px; color: var(--muted); font-size: 11px; }
+    .legend span::before { display: inline-block; width: 11px; height: 3px; margin: 0 6px 3px 0; content: ""; background: var(--teal); }
+    .legend .secondary::before { background: var(--blue); }
+    .legend .range::before { height: 9px; background: rgba(19,124,120,.2); }
+    .signals { display: grid; grid-template-columns: repeat(3, 1fr); gap: 10px; margin-top: 15px; }
+    .signal { padding: 10px; border-radius: 8px; background: #f4f8fa; }
+    .signal strong { display: block; font-size: 17px; }
+    .signal span { color: var(--muted); font-size: 11px; }
+    .table-panel { margin-top: 16px; }
+    .table-wrap { overflow: auto; max-height: 390px; border-top: 1px solid var(--line); }
+    table { width: 100%; border-collapse: collapse; white-space: nowrap; font-size: 12px; }
+    th, td { padding: 9px 10px; border-bottom: 1px solid #edf1f4; text-align: right; }
+    th { position: sticky; top: 0; background: #f7fafb; color: var(--muted); font-weight: 650; }
+    th:first-child, td:first-child, th:nth-child(2), td:nth-child(2), th:nth-child(3), td:nth-child(3) { text-align: left; }
+    .note {
+      margin-top: 16px;
+      padding: 13px 15px;
+      border-left: 3px solid var(--gold);
+      border-radius: 7px;
+      background: #fffaf0;
+      color: #66532c;
+      font-size: 12px;
+    }
+    .empty { fill: var(--muted); font: 13px "Segoe UI", Arial, sans-serif; }
+    .tabs { display: flex; flex-wrap: wrap; gap: 8px; margin: 16px 0; }
+    .tabs button { border: 1px solid var(--line); border-radius: 8px; padding: 9px 13px; background: white; color: var(--ink); font: inherit; cursor: pointer; }
+    .tabs button[aria-selected="true"] { background: var(--navy); color: white; border-color: var(--navy); }
+    .view { display: none; }
+    .view.active { display: block; }
+    .view > .panel, .view > .grid { margin-top: 15px; }
+    .chart-secondary { fill: none; stroke: var(--blue); stroke-width: 2.5; }
+    .table-scroll { overflow: auto; max-height: 480px; border-top: 1px solid var(--line); }
+    .muted-note { color: var(--muted); font-size: 12px; }
+    .metric-good { color: var(--teal); font-weight: 700; }
+    @media (max-width: 900px) {
+      .grid { grid-template-columns: 1fr; }
+      .toolbar { grid-template-columns: repeat(2, minmax(150px, 1fr)); }
+      .status { text-align: left; }
+    }
+    @media (max-width: 560px) {
+      main { padding: 15px 12px 30px; }
+      header { padding: 22px 16px; }
+      .toolbar, .kpis { grid-template-columns: 1fr 1fr; gap: 9px; }
+      .kpi { padding: 12px; }
+      .kpi-value { font-size: 19px; }
+      .signals { grid-template-columns: 1fr; }
+    }
+  </style>
+</head>
+<body>
+  <header>
+    <div class="eyebrow">Transcend · Demand planning</div>
+    <h1>Demand forecast</h1>
+    <p>SKU-region projections with empirical uncertainty bands · Nov 2026–May 2028</p>
+  </header>
+  <main>
+    <section class="toolbar" aria-label="Dashboard filters">
+      <label>Product family<select id="family-filter"></select></label>
+      <label>Region<select id="region-filter"></select></label>
+      <label>SKU<select id="sku-filter"></select></label>
+      <label>Sales channel<select id="channel-filter"></select></label>
+      <label>Customer<select id="customer-filter"></select></label>
+      <div class="status" id="filter-status"></div>
+    </section>
+    <nav class="tabs" aria-label="Dashboard views">
+      <button type="button" data-view="overview-view" aria-selected="true">Executive overview</button>
+      <button type="button" data-view="health-view" aria-selected="false">Data health</button>
+      <button type="button" data-view="demand-view" aria-selected="false">Demand explorer</button>
+      <button type="button" data-view="anomaly-view" aria-selected="false">Anomaly monitor</button>
+      <button type="button" data-view="accuracy-view" aria-selected="false">Forecast &amp; accuracy</button>
+    </nav>
+    <section id="overview-view" class="view active">
+    <section class="kpis" aria-label="Forecast summary">
+      <div class="kpi"><div class="kpi-label">P50 forecast units</div><div class="kpi-value" id="kpi-units">—</div><div class="kpi-note">Selected scope · full horizon</div></div>
+      <div class="kpi"><div class="kpi-label">Average monthly P50</div><div class="kpi-value" id="kpi-monthly">—</div><div class="kpi-note">P50 units per month</div></div>
+      <div class="kpi"><div class="kpi-label">SKU-region-month rows</div><div class="kpi-value" id="kpi-rows">—</div><div class="kpi-note">Forecast coverage in selected scope</div></div>
+      <div class="kpi"><div class="kpi-label">Average summed SKU range</div><div class="kpi-value" id="kpi-range">—</div><div class="kpi-note">Sum of item-level P90 minus P10</div></div>
+    </section>
+    <section class="grid">
+      <article class="panel">
+        <h2>Monthly forecast</h2>
+        <p class="subtitle">P50 line with summed SKU-level P10–P90 bounds</p>
+        <svg id="trend-chart" viewBox="0 0 900 310" role="img" aria-label="Monthly forecast chart"></svg>
+        <div class="legend"><span>P50 forecast</span><span class="range">Sum of SKU-level bounds</span></div>
+      </article>
+      <article class="panel">
+        <h2>Historical-to-forecast units</h2>
+        <p class="subtitle">Unconstrained demand history followed by selected P50 forecasts</p>
+        <svg id="continuity-chart" viewBox="0 0 900 310" role="img" aria-label="Historical and forecast units"></svg>
+        <div class="legend"><span>Historical demand</span><span class="secondary">Forecast P50</span></div>
+      </article>
+      <article class="panel">
+        <h2>Historical-to-forecast revenue</h2>
+        <p class="subtitle">Historical revenue estimate and future price-event-adjusted forecast estimate</p>
+        <svg id="revenue-chart" viewBox="0 0 900 310" role="img" aria-label="Historical and forecast revenue"></svg>
+      </article>
+      <article class="panel">
+        <h2>Family mix</h2>
+        <p class="subtitle">P50 forecast units across selected scope</p>
+        <svg id="family-chart" viewBox="0 0 500 310" role="img" aria-label="Forecast by product family"></svg>
+        <div class="signals">
+          <div class="signal"><strong id="event-share">—</strong><span>units on event-exposed rows</span></div>
+          <div class="signal"><strong id="prelaunch-rows">—</strong><span>pre-launch forecast rows</span></div>
+          <div class="signal"><strong id="post-eol-rows">—</strong><span>post-EOL forecast rows</span></div>
+        </div>
+      </article>
+      <article class="panel">
+        <h2>Region mix</h2>
+        <p class="subtitle">P50 forecast units across selected scope</p>
+        <svg id="region-mix-chart" viewBox="0 0 500 310" role="img" aria-label="Forecast by region"></svg>
+      </article>
+      <article class="panel">
+        <h2>Channel mix</h2>
+        <p class="subtitle">Observed unconstrained demand by historical sales channel</p>
+        <svg id="channel-mix-chart" viewBox="0 0 500 310" role="img" aria-label="Forecast by sales channel"></svg>
+      </article>
+    </section>
+    </section>
+    <section id="health-view" class="view">
+      <article class="panel">
+        <h2>File inventory and cleaning row counts</h2>
+        <p class="subtitle">Input/output rows and expected counts where supplied</p>
+        <div class="table-scroll"><table><thead><tr><th>File</th><th>Input rows</th><th>Output rows</th><th>Expected rows</th></tr></thead><tbody id="file-metric-rows"></tbody></table></div>
+      </article>
+      <article class="panel">
+        <h2>Data quality issues</h2>
+        <p class="subtitle">Issue counts, affected rows, source file, and documented action from the machine-readable report</p>
+        <div class="table-scroll"><table><thead><tr><th>File</th><th>Issue</th><th>Rows</th><th>Severity</th><th>Action</th></tr></thead><tbody id="issue-rows"></tbody></table></div>
+      </article>
+      <article class="panel">
+        <h2>Cleaning correction summary</h2>
+        <p class="subtitle">Aggregate correction counts and methods</p>
+        <div class="table-scroll"><table><thead><tr><th>File</th><th>Correction</th><th>Rows</th><th>Action</th></tr></thead><tbody id="correction-rows"></tbody></table></div>
+      </article>
+      <article class="panel">
+        <h2>Corrections and price evidence</h2>
+        <p class="subtitle">Aggregate corrections plus a 500-row preview of row-level SKU/month peer evidence; the full log is in outputs/data_quality/price_correction_log.csv</p>
+        <div class="table-scroll"><table><thead><tr><th>Record</th><th>Date</th><th>SKU</th><th>Original price</th><th>Corrected price</th><th>Peer count</th><th>Correction</th></tr></thead><tbody id="price-correction-rows"></tbody></table></div>
+      </article>
+    </section>
+    <section id="demand-view" class="view">
+      <article class="panel">
+        <h2>Historical demand explorer</h2>
+        <p class="subtitle">Monthly unconstrained demand, zero months, channel/customer context, and lifecycle where available</p>
+        <div class="signals">
+          <div class="signal"><strong id="zero-months">—</strong><span>observed zero-demand rows</span></div>
+          <div class="signal"><strong id="demand-series">—</strong><span>SKU-region series</span></div>
+          <div class="signal"><strong id="lifecycle-pairs">—</strong><span>replacement relationships in selection</span></div>
+        </div>
+        <svg id="demand-chart" viewBox="0 0 900 310" role="img" aria-label="Selected historical demand"></svg>
+        <div class="table-scroll"><table><thead><tr><th>Date</th><th>SKU</th><th>Region</th><th>Customer</th><th>Channel</th><th>Demand</th><th>Demand source</th></tr></thead><tbody id="demand-rows"></tbody></table></div>
+      </article>
+    </section>
+    <section id="anomaly-view" class="view">
+      <article class="panel">
+        <h2>Flagged demand observations</h2>
+        <p class="subtitle">Anomaly type, classification, reason, related event, and recommended action</p>
+        <div class="table-scroll"><table><thead><tr><th>Date</th><th>SKU</th><th>Region</th><th>Customer</th><th>Type</th><th>Classification</th><th>Reason</th><th>Recommended action</th></tr></thead><tbody id="anomaly-rows"></tbody></table></div>
+      </article>
+    </section>
+    <section id="accuracy-view" class="view">
+      <article class="panel">
+        <h2>Forecast vs. historical demand</h2>
+        <p class="subtitle">P50 comparison with selected filtered history</p>
+        <svg id="accuracy-trend-chart" viewBox="0 0 900 310" role="img" aria-label="Forecast versus history"></svg>
+      </article>
+      <div class="grid">
+        <article class="panel"><h2>WAPE and bias by family</h2><div class="table-scroll"><table><thead><tr><th>Family</th><th>Region</th><th>Origin</th><th>Horizon</th><th>WAPE</th><th>Bias</th><th>Rows</th></tr></thead><tbody id="family-accuracy-rows"></tbody></table></div></article>
+        <article class="panel"><h2>WAPE and bias by region</h2><div class="table-scroll"><table><thead><tr><th>Region</th><th>Family</th><th>Origin</th><th>Horizon</th><th>WAPE</th><th>Bias</th><th>Rows</th></tr></thead><tbody id="region-accuracy-rows"></tbody></table></div></article>
+      </div>
+      <article class="panel"><h2>WAPE and bias by horizon</h2><div class="table-scroll"><table><thead><tr><th>Origin</th><th>Family</th><th>Region</th><th>Horizon</th><th>WAPE</th><th>Bias</th><th>Rows</th></tr></thead><tbody id="horizon-accuracy-rows"></tbody></table></div></article>
+    </section>
+    <section class="panel table-panel">
+      <h2>Largest SKU-region forecasts</h2>
+      <p class="subtitle">Top 25 rows in the selected scope, ranked by P50 units</p>
+      <div class="table-wrap">
+        <table>
+          <thead><tr><th>Date</th><th>SKU</th><th>Region</th><th>Product family</th><th>P10</th><th>P50</th><th>P90</th><th>Forecast source</th></tr></thead>
+          <tbody id="forecast-rows"></tbody>
+        </table>
+      </div>
+    </section>
+    <div class="note">
+      P10/P90 are approximate empirical SKU-level intervals from rolling-origin residuals. Their sums are not calibrated aggregate quantiles. The source data lack on-hand inventory, committed inbound orders, and lead times, so this dashboard does not calculate purchase quantities.
+    </div>
+  </main>
+  <script id="dashboard-data" type="application/json">__DASHBOARD_DATA__</script>
+  <script>
+    "use strict";
+    const payload = JSON.parse(document.getElementById("dashboard-data").textContent);
+    function unpackRecords(packed, columns) {
+      const categories = new Set(Object.keys(payload.dimensions));
+      return packed.map(values => Object.fromEntries(columns.map((column, index) => {
+        const value = values[index];
+        return [column, categories.has(column) ? (value < 0 ? null : payload.dimensions[column][value]) : value];
+      })));
+    }
+    const rows = unpackRecords(payload.rows, payload.forecast_columns);
+    const history = unpackRecords(payload.history, payload.history_columns);
+    const anomalies = payload.anomalies;
+    const familyFilter = document.getElementById("family-filter");
+    const regionFilter = document.getElementById("region-filter");
+    const skuFilter = document.getElementById("sku-filter");
+    const channelFilter = document.getElementById("channel-filter");
+    const customerFilter = document.getElementById("customer-filter");
+    const lifecycle = new Map(payload.lifecycle.map(item => [item.SKU_ID, item]));
+    const number = value => Number(value || 0).toLocaleString(undefined, {maximumFractionDigits: 0});
+    const decimal = value => Number(value || 0).toLocaleString(undefined, {maximumFractionDigits: 1});
+    const currency = value => Number(value || 0).toLocaleString(undefined, {style: "currency", currency: "USD", maximumFractionDigits: 0});
+    const allRows = [...rows, ...history];
+    const sortedUnique = field => [...new Set(allRows.map(row => row[field]).filter(Boolean))].sort();
+
+    function addOptions(select, values, label) {
+      const all = document.createElement("option");
+      all.value = "";
+      all.textContent = `All ${label}`;
+      select.appendChild(all);
+      values.forEach(value => {
+        const option = document.createElement("option");
+        option.value = value;
+        option.textContent = value;
+        select.appendChild(option);
+      });
+    }
+    addOptions(familyFilter, sortedUnique("Product_Family"), "families");
+    addOptions(regionFilter, sortedUnique("Region"), "regions");
+    addOptions(skuFilter, sortedUnique("SKU_ID"), "SKUs");
+    addOptions(channelFilter, sortedUnique("Sales_Channel"), "channels");
+    addOptions(customerFilter, sortedUnique("Customer_Name"), "customers");
+
+    function makeSvg(tag, attrs, text) {
+      const node = document.createElementNS("http://www.w3.org/2000/svg", tag);
+      Object.entries(attrs || {}).forEach(([key, value]) => node.setAttribute(key, value));
+      if (text !== undefined) node.textContent = text;
+      return node;
+    }
+    function showEmpty(svg, message) {
+      svg.replaceChildren(makeSvg("text", {x: 24, y: 38, class: "empty"}, message));
+    }
+    function matches(row, includeCustomerChannel) {
+      return (!familyFilter.value || row.Product_Family === familyFilter.value) &&
+        (!regionFilter.value || row.Region === regionFilter.value) &&
+        (!skuFilter.value || row.SKU_ID === skuFilter.value) &&
+        (!includeCustomerChannel || !channelFilter.value || row.Sales_Channel === channelFilter.value) &&
+        (!includeCustomerChannel || !customerFilter.value || row.Customer_Name === customerFilter.value);
+    }
+    function currentHistory() {
+      return history.filter(row => matches(row, true));
+    }
+    function currentRows() {
+      const selectedHistory = currentHistory();
+      const hasHistoryScope = Boolean(channelFilter.value || customerFilter.value);
+      const eligiblePairs = new Set(selectedHistory.map(row => `${row.SKU_ID}|${row.Region}`));
+      return rows.filter(row => matches(row, false) &&
+        (!hasHistoryScope || eligiblePairs.has(`${row.SKU_ID}|${row.Region}`)));
+    }
+    function drawTrend(data) {
+      const svg = document.getElementById("trend-chart");
+      svg.replaceChildren();
+      const months = [...new Set(data.map(row => row.Date))].sort();
+      if (!months.length) return showEmpty(svg, "No forecast rows match these filters.");
+      const grouped = new Map(months.map(month => [month, {p10: 0, p50: 0, p90: 0}]));
+      data.forEach(row => {
+        const point = grouped.get(row.Date);
+        point.p10 += Number(row.P10);
+        point.p50 += Number(row.P50);
+        point.p90 += Number(row.P90);
+      });
+      const values = months.map(month => grouped.get(month));
+      const width = 900, height = 310, left = 64, right = 18, top = 18, bottom = 42;
+      const innerW = width - left - right, innerH = height - top - bottom;
+      const max = Math.max(1, ...values.map(value => value.p90)) * 1.08;
+      const x = index => left + (months.length === 1 ? innerW / 2 : index * innerW / (months.length - 1));
+      const y = value => top + innerH - value / max * innerH;
+      for (let tick = 0; tick <= 4; tick++) {
+        const value = max * tick / 4, yy = y(value);
+        svg.appendChild(makeSvg("line", {x1: left, y1: yy, x2: width - right, y2: yy, class: "axis"}));
+        svg.appendChild(makeSvg("text", {x: left - 8, y: yy + 4, "text-anchor": "end", class: "chart-label"}, number(value)));
+      }
+      const upper = values.map((value, index) => `${index ? "L" : "M"}${x(index)},${y(value.p90)}`).join(" ");
+      const lower = values.map((value, index) => `${index ? "L" : "L"}${x(months.length - 1 - index)},${y(values[months.length - 1 - index].p10)}`).join(" ");
+      svg.appendChild(makeSvg("path", {d: `${upper} ${lower} Z`, class: "band"}));
+      const line = values.map((value, index) => `${index ? "L" : "M"}${x(index)},${y(value.p50)}`).join(" ");
+      svg.appendChild(makeSvg("path", {d: line, class: "trend"}));
+      [0, Math.floor((months.length - 1) / 2), months.length - 1].forEach(index => {
+        svg.appendChild(makeSvg("text", {x: x(index), y: height - 12, "text-anchor": "middle", class: "chart-label"}, months[index]));
+      });
+    }
+    function drawFamilies(data) {
+      drawMix("family-chart", data, "Product_Family", "P50");
+    }
+    function drawMix(svgId, data, field, metric) {
+      const svg = document.getElementById(svgId);
+      svg.replaceChildren();
+      const totals = new Map();
+      data.forEach(row => {
+        const category = row[field] || "Unknown";
+        totals.set(category, (totals.get(category) || 0) + Number(row[metric] || 0));
+      });
+      const entries = [...totals.entries()].sort((a, b) => b[1] - a[1]);
+      if (!entries.length) return showEmpty(svg, "No family data.");
+      const max = Math.max(...entries.map(entry => entry[1]), 1);
+      const width = 500, left = 185, barWidth = 250, rowHeight = 38;
+      svg.setAttribute("viewBox", `0 0 ${width} ${Math.max(150, entries.length * rowHeight + 20)}`);
+      entries.forEach(([family, value], index) => {
+        const y = 16 + index * rowHeight;
+        svg.appendChild(makeSvg("text", {x: left - 10, y: y + 15, "text-anchor": "end", class: "chart-label"}, family));
+        svg.appendChild(makeSvg("rect", {x: left, y, width: Math.max(2, value / max * barWidth), height: 19, rx: 4, class: "bar"}));
+        svg.appendChild(makeSvg("text", {x: left + Math.max(2, value / max * barWidth) + 7, y: y + 14, class: "chart-label"}, number(value)));
+      });
+    }
+    function drawHistoryMix(data, field) {
+      const svg = document.getElementById("channel-mix-chart");
+      svg.replaceChildren();
+      const totals = new Map();
+      data.forEach(row => {
+        const category = row[field] || "Unknown";
+        totals.set(category, (totals.get(category) || 0) + Number(row.Unconstrained_Demand || 0));
+      });
+      const entries = [...totals.entries()].sort((a, b) => b[1] - a[1]);
+      if (!entries.length) return showEmpty(svg, "No historical channel mix data.");
+      const max = Math.max(...entries.map(entry => entry[1]), 1);
+      const width = 500, left = 185, barWidth = 250, rowHeight = 38;
+      svg.setAttribute("viewBox", `0 0 ${width} ${Math.max(150, entries.length * rowHeight + 20)}`);
+      entries.forEach(([category, value], index) => {
+        const y = 16 + index * rowHeight;
+        svg.appendChild(makeSvg("text", {x: left - 10, y: y + 15, "text-anchor": "end", class: "chart-label"}, category));
+        svg.appendChild(makeSvg("rect", {x: left, y, width: Math.max(2, value / max * barWidth), height: 19, rx: 4, class: "bar"}));
+        svg.appendChild(makeSvg("text", {x: left + Math.max(2, value / max * barWidth) + 7, y: y + 14, class: "chart-label"}, number(value)));
+      });
+    }
+    function drawTable(data) {
+      const body = document.getElementById("forecast-rows");
+      body.replaceChildren();
+      const sorted = [...data].sort((a, b) => Number(b.P50) - Number(a.P50)).slice(0, 25);
+      sorted.forEach(row => {
+        const tr = document.createElement("tr");
+        [row.Date, row.SKU_ID, row.Region, row.Product_Family, decimal(row.P10), decimal(row.P50), decimal(row.P90), row.Forecast_Method].forEach(value => {
+          const td = document.createElement("td");
+          td.textContent = String(value ?? "");
+          tr.appendChild(td);
+        });
+        body.appendChild(tr);
+      });
+    }
+    function drawCombined(svgId, historical, forecasts, field, formatValue) {
+      const svg = document.getElementById(svgId);
+      svg.replaceChildren();
+      const historicalMonthly = new Map();
+      const forecastMonthly = new Map();
+      historical.forEach(row => {
+        const value = Number(row[field] || 0);
+        if (!Number.isFinite(value)) return;
+        historicalMonthly.set(row.Date, (historicalMonthly.get(row.Date) || 0) + value);
+      });
+      const forecastField = field === "Unconstrained_Demand" ? "P50" : "Revenue_P50_Estimate_USD";
+      forecasts.forEach(row => {
+        const value = Number(row[forecastField] || 0);
+        if (!Number.isFinite(value)) return;
+        forecastMonthly.set(row.Date, (forecastMonthly.get(row.Date) || 0) + value);
+      });
+      const months = [...new Set([...historicalMonthly.keys(), ...forecastMonthly.keys()])].sort();
+      if (!months.length) return showEmpty(svg, "No data match these filters.");
+      const values = months.map(month => Math.max(historicalMonthly.get(month) || 0, forecastMonthly.get(month) || 0));
+      const width = 900, height = 310, left = 70, right = 18, top = 18, bottom = 42;
+      const innerW = width - left - right, innerH = height - top - bottom;
+      const max = Math.max(1, ...values) * 1.08;
+      const x = index => left + (months.length === 1 ? innerW / 2 : index * innerW / (months.length - 1));
+      const y = value => top + innerH - value / max * innerH;
+      for (let tick = 0; tick <= 4; tick++) {
+        const value = max * tick / 4, yy = y(value);
+        svg.appendChild(makeSvg("line", {x1: left, y1: yy, x2: width - right, y2: yy, class: "axis"}));
+        svg.appendChild(makeSvg("text", {x: left - 8, y: yy + 4, "text-anchor": "end", class: "chart-label"}, formatValue(value)));
+      }
+      const paths = [
+        {data: historicalMonthly, className: "trend"},
+        {data: forecastMonthly, className: "chart-secondary"}
+      ];
+      paths.forEach(series => {
+        let started = false;
+        const commands = [];
+        months.forEach((month, index) => {
+          if (!series.data.has(month)) { started = false; return; }
+          commands.push(`${started ? "L" : "M"}${x(index)},${y(series.data.get(month))}`);
+          started = true;
+        });
+        if (commands.length) svg.appendChild(makeSvg("path", {d: commands.join(" "), class: series.className}));
+      });
+      [0, Math.floor((months.length - 1) / 2), months.length - 1].forEach(index => {
+        svg.appendChild(makeSvg("text", {x: x(index), y: height - 12, "text-anchor": "middle", class: "chart-label"}, months[index]));
+      });
+    }
+    function fillRows(targetId, data, columns, limit) {
+      const body = document.getElementById(targetId);
+      body.replaceChildren();
+      data.slice(0, limit || data.length).forEach(item => {
+        const tr = document.createElement("tr");
+        columns.forEach(column => {
+          const td = document.createElement("td");
+          const value = typeof column === "function" ? column(item) : item[column];
+          td.textContent = String(value ?? "");
+          tr.appendChild(td);
+        });
+        body.appendChild(tr);
+      });
+    }
+    function drawDemand(data) {
+      drawCombined("demand-chart", data, [], "Unconstrained_Demand", number);
+      document.getElementById("zero-months").textContent = number(data.filter(row => Number(row.Unconstrained_Demand) === 0).length);
+      document.getElementById("demand-series").textContent = number(new Set(data.map(row => `${row.SKU_ID}|${row.Region}`)).size);
+      document.getElementById("lifecycle-pairs").textContent = number(new Set(data
+        .map(row => lifecycle.get(row.SKU_ID)?.Replaces_SKU).filter(Boolean)).size);
+      const recent = [...data].sort((a, b) => b.Date.localeCompare(a.Date)).slice(0, 60);
+      fillRows("demand-rows", recent, [
+        "Date", "SKU_ID", "Region", "Customer_Name", "Sales_Channel",
+        item => decimal(item.Unconstrained_Demand),
+        item => `${item.Demand_Estimate_Source || ""} · ${lifecycle.get(item.SKU_ID)?.Lifecycle_Status || "lifecycle unknown"}`
+      ]);
+    }
+    function drawAnomalies() {
+      const filtered = anomalies.filter(item => matches(item, true))
+        .sort((a, b) => String(b.Date).localeCompare(String(a.Date)));
+      fillRows("anomaly-rows", filtered, [
+        "Date", "SKU_ID", "Region", "Customer_Name", "Anomaly_Type",
+        "Classification", "Reason", "Recommended_Action"
+      ], 500);
+    }
+    function renderAccuracy() {
+      const familyRows = payload.accuracy.family_region.filter(row =>
+        (!familyFilter.value || row.Product_Family === familyFilter.value) &&
+        (!regionFilter.value || row.Region === regionFilter.value));
+      const regionRows = payload.accuracy.family_region.filter(row =>
+        (!regionFilter.value || row.Region === regionFilter.value) &&
+        (!familyFilter.value || row.Product_Family === familyFilter.value));
+      const horizonRows = payload.accuracy.family_region.filter(row =>
+        (!familyFilter.value || row.Product_Family === familyFilter.value) &&
+        (!regionFilter.value || row.Region === regionFilter.value));
+      const familyColumns = [
+        row => row.Product_Family || "", row => row.Region || "", row => row.Origin || "",
+        row => row.Horizon_Bucket || "",
+        row => `${(Number(row.WAPE) * 100).toFixed(1)}%`,
+        row => `${(Number(row.Bias) * 100).toFixed(1)}%`,
+        row => number(row.Rows)
+      ];
+      fillRows("family-accuracy-rows", familyRows, familyColumns);
+      fillRows("region-accuracy-rows", regionRows, [
+        row => row.Region || "", row => row.Product_Family || "", row => row.Origin || "",
+        row => row.Horizon_Bucket || "",
+        row => `${(Number(row.WAPE) * 100).toFixed(1)}%`,
+        row => `${(Number(row.Bias) * 100).toFixed(1)}%`, row => number(row.Rows)
+      ]);
+      fillRows("horizon-accuracy-rows", horizonRows, [
+        row => row.Origin || "", row => row.Product_Family || "", row => row.Region || "",
+        row => row.Horizon_Bucket || "", row => `${(Number(row.WAPE) * 100).toFixed(1)}%`,
+        row => `${(Number(row.Bias) * 100).toFixed(1)}%`, row => number(row.Rows)
+      ]);
+    }
+    function renderHealth() {
+      const fileMetrics = Object.entries(payload.file_metrics).map(([file, values]) => ({
+        file, input_rows: values.input_rows, output_rows: values.output_rows,
+        expected_rows: values.expected_rows
+      }));
+      fillRows("file-metric-rows", fileMetrics, [
+        "file", item => number(item.input_rows), item => number(item.output_rows),
+        item => item.expected_rows == null ? "—" : number(item.expected_rows)
+      ]);
+      fillRows("issue-rows", payload.issues, [
+        "file", "type", item => number(item.affected_rows), "severity", "action"
+      ]);
+      fillRows("correction-rows", payload.corrections, [
+        "file", "type", item => number(item.affected_rows), "action"
+      ]);
+      fillRows("price-correction-rows", payload.price_corrections, [
+        "Record_ID", "Date", "SKU_ID",
+        item => currency(item.Original_Unit_Price_USD),
+        item => currency(item.Corrected_Unit_Price_USD),
+        item => number(item.Positive_Same_SKU_Month_Peers),
+        "Correction_Type"
+      ], 300);
+    }
+    function render() {
+      const data = currentRows();
+      const hist = currentHistory();
+      const monthly = new Map();
+      let total = 0, low = 0, high = 0, eventUnits = 0, prelaunch = 0, postEol = 0;
+      data.forEach(row => {
+        total += Number(row.P50);
+        low += Number(row.P10);
+        high += Number(row.P90);
+        if (Number(row.Known_Scoped_Event_Count) > 0) eventUnits += Number(row.P50);
+        if (row.Is_Launched === false) prelaunch++;
+        if (row.Is_Before_EOL === false) postEol++;
+        monthly.set(row.Date, true);
+      });
+      document.getElementById("kpi-units").textContent = number(total);
+      document.getElementById("kpi-monthly").textContent = number(total / Math.max(monthly.size, 1));
+      document.getElementById("kpi-rows").textContent = number(data.length);
+      document.getElementById("kpi-range").textContent = number(high - low);
+      document.getElementById("filter-status").textContent = `${monthly.size} forecast months · ${number(data.length)} forecast rows · ${number(hist.length)} history rows`;
+      document.getElementById("event-share").textContent = `${(total ? eventUnits / total * 100 : 0).toFixed(1)}%`;
+      document.getElementById("prelaunch-rows").textContent = number(prelaunch);
+      document.getElementById("post-eol-rows").textContent = number(postEol);
+      drawTrend(data);
+      drawFamilies(data);
+      drawMix("region-mix-chart", data, "Region", "P50");
+      drawHistoryMix(hist, "Sales_Channel");
+      drawTable(data);
+      drawCombined("continuity-chart", hist, data, "Unconstrained_Demand", number);
+      drawCombined("revenue-chart", hist, data, "Estimated_Revenue_USD", currency);
+      drawCombined("accuracy-trend-chart", hist, data, "Unconstrained_Demand", number);
+      drawDemand(hist);
+      drawAnomalies();
+      renderAccuracy();
+      renderHealth();
+    }
+    [familyFilter, regionFilter, skuFilter, channelFilter, customerFilter].forEach(control => control.addEventListener("change", render));
+    document.querySelectorAll(".tabs button").forEach(button => button.addEventListener("click", () => {
+      document.querySelectorAll(".tabs button").forEach(item => item.setAttribute("aria-selected", String(item === button)));
+      document.querySelectorAll(".view").forEach(view => view.classList.toggle("active", view.id === button.dataset.view));
+    }));
+    render();
+  </script>
+</body>
+</html>

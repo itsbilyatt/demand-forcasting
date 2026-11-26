@@ -1,0 +1,8 @@
+file,rows,columns,size_bytes,expected_rows,row_count_matches_brief,malformed_rows_extra_fields,date_min,date_max,expected_date_min,expected_date_max,out_of_expected_range_rows,year_month_mismatch_rows,year_month_mismatch_examples
+train.csv,248248,15,48834690,248248,True,0,2019-01-01,2062-10-01,2019-01-01,2026-10-01,30,276,"[{""Date"": ""2019-01"", ""Year"": ""2019"", ""Month"": ""2"", ""Record_ID"": ""CEL-0045443""}, {""Date"": ""2019-01"", ""Year"": ""2019"", ""Month"": ""2"", ""Record_ID"": ""CEL-0099411""}, {""Date"": ""2019-02"", ""Year"": ""2019"", ""Month"": ""3"", ""Record_ID"": ""CEL-0112351""}, {""Date"": ""2019-02"", ""Year"": ""2019"", ""Month"": ""3"", ""Record_ID"": ""CEL-0233623""}, {""Date"": ""2019-02"", ""Year"": ""2019"", ""Month"": ""3"", ""Record_ID"": ""CEL-0032570""}]"
+test.csv,58219,10,8619404,58219,True,0,2026-11-01,2028-05-01,2026-11-01,2028-05-01,0,0,[]
+macro_indicators.csv,114,11,6709,114,True,0,2019-01-01,2028-05-01,2019-01-01,2028-05-01,0,0,[]
+sku_master.csv,601,10,76253,601,True,0,,,,,0,0,[]
+events_calendar.csv,68,7,6406,68,True,0,,,,,0,0,[]
+inventory_stockouts.csv,5830,11,419781,5830,True,0,2019-01-01,2026-10-01,,,0,0,[]
+sample_submission.csv,5,4,210,5,True,0,2026-11-01,2027-03-01,,,0,0,[]

@@ -1,0 +1,56 @@
+00_project_setup_and_data_inventory.ipynb
+
+Load the files from the provided data\student_data folder.
+Check shapes, column types, date ranges, missing values, duplicates, and key uniqueness.
+Record assumptions and produce a file/row inventory.
+01_data_cleaning_and_quality_report.ipynb
+
+Trust Date over Year and Month; standardize labels and dates.
+Deduplicate Record_ID, keeping the latest Load_Timestamp.
+Check quantities, prices, revenue, unit/currency inconsistencies, and master-data conflicts.
+Save cleaned datasets and a machine-readable report of issues, affected rows, and corrections.
+02_stockouts_and_demand_reconstruction.ipynb
+
+Join inventory_stockouts.csv to the sales history.
+Estimate unconstrained demand where shipment totals were limited; keep observed sales separate from adjusted demand.
+Document uncertainty and avoid treating missing sales rows as zero demand.
+03_demand_exploration_and_anomalies.ipynb
+
+Explore trends, seasonality, zero-sales frequency, order cycles, customer changes, and SKU lifecycle.
+Flag unusual observations and classify them as likely errors or real events.
+Produce an anomaly register with reason and action.
+04_features_and_external_drivers.ipynb
+
+Create calendar, lag, rolling, intermittency, lifecycle, event, and stockout-related features.
+Explore macro-indicator relationships and plausible lead/lag effects by product family.
+Ensure every forecast feature would actually be available for the forecast period.
+05_baselines_and_backtesting.ipynb
+
+Build at least two simple baselines, such as seasonal naïve and recent-history average.
+Use time-based rolling-origin validation, including a 19-month forecast horizon.
+Report WAPE and bias by family, region, and horizon—not just one overall score.
+06_advanced_forecast_model.ipynb
+
+Compare a global machine-learning model with the baselines.
+Test an intermittent-demand approach for sparse SKUs.
+Select models based on backtest performance, not training fit; explain where each model works best.
+07_final_forecast_and_submission.ipynb
+
+Refit the selected approach using all appropriate history.
+Forecast every row in test.csv.
+Check row coverage, duplicate keys, blanks, non-negative integer values, and the required submission columns.
+Export the final submission file.
+08_uncertainty_and_business_checks.ipynb
+Estimate empirical P10/P50/P90 forecast ranges from rolling-origin residuals.
+Check hierarchy rollups, product lifecycle, known events, and forecast coverage.
+Document procurement inputs that are unavailable; do not invent reorder quantities.
+
+09_local_dashboard.ipynb
+Generate a standalone local dashboard with shared family, SKU, region, channel, and customer filters.
+Include executive overview, data health, demand explorer, anomaly monitor, and forecast/accuracy views.
+Show continuous historical-to-forecast units and estimated revenue, lifecycle, uncertainty, and WAPE/bias.
+
+10_reproducible_pipeline
+Run the complete workflow from the project root with:
+.\.venv\Scripts\python.exe -m src.pipeline
+The pipeline must stop on errors and write a machine-readable run summary.

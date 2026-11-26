@@ -1,0 +1,23 @@
+{
+  "history_rows_in_expected_window": 244577,
+  "history_rows_outside_expected_window": 30,
+  "sku_region_series": 3501,
+  "series_with_zero_positive_demand_months": 42,
+  "demand_class_counts": {
+    "smooth": 2063,
+    "intermittent": 703,
+    "erratic": 376,
+    "insufficient_positive_history": 260,
+    "lumpy": 99
+  },
+  "customer_or_channel_switches": 5241,
+  "anomaly_register_rows": 11055,
+  "anomaly_counts": {
+    "listed_stockout": 5830,
+    "missing_observed_shipments": 3930,
+    "high_demand_spike": 774,
+    "negative_raw_units": 491,
+    "outside_history_window": 30
+  },
+  "outputs": "C:\\Users\\Prajyot\\Downloads\\mks\\demand-forcasting\\outputs\\demand_exploration"
+}

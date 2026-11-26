@@ -1,0 +1,50 @@
+{
+  "selected_method": "validated_blend",
+  "global_model_weight": 0.45,
+  "seasonal_naive_weight": 0.55,
+  "selection_method": "For each held-out origin, choose the WAPE-minimizing weight on all other origins; production weight is the mean of those out-of-origin selected weights.",
+  "leave_one_origin_out_results": [
+    {
+      "Origin": "2023-09",
+      "Calibration_Origins": "2025-03",
+      "Selected_Global_Weight": 0.45,
+      "Selected_Seasonal_Weight": 0.55,
+      "Held_Out_WAPE": 0.42199012789501844,
+      "Held_Out_Bias": -0.1356067746215848,
+      "Seasonal_WAPE": 0.45429494798377,
+      "Global_WAPE": 0.47086928908978654
+    },
+    {
+      "Origin": "2025-03",
+      "Calibration_Origins": "2023-09",
+      "Selected_Global_Weight": 0.45,
+      "Selected_Seasonal_Weight": 0.55,
+      "Held_Out_WAPE": 0.4279265251793393,
+      "Held_Out_Bias": 0.04343285858385017,
+      "Seasonal_WAPE": 0.4682215290100313,
+      "Global_WAPE": 0.47384857658635154
+    }
+  ],
+  "pooled_metrics": [
+    {
+      "Origin": "2023-09",
+      "Model": "validated_blend",
+      "Rows": 55386,
+      "WAPE": 0.42199012789501844,
+      "Bias": -0.1356067746215848,
+      "Actual_Units": 2799430.0,
+      "Forecast_Units": 2419808.326921097
+    },
+    {
+      "Origin": "2025-03",
+      "Model": "validated_blend",
+      "Rows": 56591,
+      "WAPE": 0.4279265251793393,
+      "Bias": 0.04343285858385017,
+      "Actual_Units": 2780323.0,
+      "Forecast_Units": 2901080.375676426
+    }
+  ],
+  "prediction_rows": 111977,
+  "outputs": "C:\\Users\\Prajyot\\Downloads\\mks\\demand-forcasting\\outputs\\model_selection"
+}

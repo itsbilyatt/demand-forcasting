@@ -1,0 +1,85 @@
+﻿Product_Family,Month_Number,Mean_Monthly_Demand,Demand_Observations
+Brake & Safety Systems,1,24533.625,8
+Brake & Safety Systems,2,23024.875,8
+Brake & Safety Systems,3,24159.75,8
+Brake & Safety Systems,4,24823.25,8
+Brake & Safety Systems,5,24186.75,8
+Brake & Safety Systems,6,21222.0,8
+Brake & Safety Systems,7,26356.0,8
+Brake & Safety Systems,8,22757.5,8
+Brake & Safety Systems,9,25657.625,8
+Brake & Safety Systems,10,26075.875,8
+Brake & Safety Systems,11,23453.85714285714,7
+Brake & Safety Systems,12,21548.285714285714,7
+Chassis & Structural,1,16876.875,8
+Chassis & Structural,2,19365.375,8
+Chassis & Structural,3,19370.25,8
+Chassis & Structural,4,19103.875,8
+Chassis & Structural,5,19164.5,8
+Chassis & Structural,6,17918.25,8
+Chassis & Structural,7,18051.375,8
+Chassis & Structural,8,16724.375,8
+Chassis & Structural,9,19746.125,8
+Chassis & Structural,10,20320.375,8
+Chassis & Structural,11,17724.85714285714,7
+Chassis & Structural,12,20739.428571428572,7
+Electrical Assemblies,1,11071.5,8
+Electrical Assemblies,2,10259.625,8
+Electrical Assemblies,3,12503.75,8
+Electrical Assemblies,4,12969.625,8
+Electrical Assemblies,5,12402.5,8
+Electrical Assemblies,6,10996.625,8
+Electrical Assemblies,7,12920.125,8
+Electrical Assemblies,8,10131.625,8
+Electrical Assemblies,9,12454.5,8
+Electrical Assemblies,10,13280.375,8
+Electrical Assemblies,11,12083.857142857143,7
+Electrical Assemblies,12,11251.714285714286,7
+Hydraulic Systems,1,14662.25,8
+Hydraulic Systems,2,13384.625,8
+Hydraulic Systems,3,17298.0,8
+Hydraulic Systems,4,15522.75,8
+Hydraulic Systems,5,15930.0,8
+Hydraulic Systems,6,15587.25,8
+Hydraulic Systems,7,15095.375,8
+Hydraulic Systems,8,13658.5,8
+Hydraulic Systems,9,17258.75,8
+Hydraulic Systems,10,16321.125,8
+Hydraulic Systems,11,15740.142857142857,7
+Hydraulic Systems,12,16432.571428571428,7
+Powertrain Components,1,15462.5,8
+Powertrain Components,2,15778.875,8
+Powertrain Components,3,19432.375,8
+Powertrain Components,4,18011.375,8
+Powertrain Components,5,19388.875,8
+Powertrain Components,6,18147.875,8
+Powertrain Components,7,16329.875,8
+Powertrain Components,8,16763.0,8
+Powertrain Components,9,20374.125,8
+Powertrain Components,10,18376.625,8
+Powertrain Components,11,18314.14285714286,7
+Powertrain Components,12,17450.14285714286,7
+Precision Machined Parts,1,19765.25,8
+Precision Machined Parts,2,19623.125,8
+Precision Machined Parts,3,22704.375,8
+Precision Machined Parts,4,20987.25,8
+Precision Machined Parts,5,22370.5,8
+Precision Machined Parts,6,19824.25,8
+Precision Machined Parts,7,19535.875,8
+Precision Machined Parts,8,19346.0,8
+Precision Machined Parts,9,21894.625,8
+Precision Machined Parts,10,22104.25,8
+Precision Machined Parts,11,21382.428571428572,7
+Precision Machined Parts,12,20480.428571428572,7
+Thermal Management,1,19883.125,8
+Thermal Management,2,18422.0,8
+Thermal Management,3,21378.5,8
+Thermal Management,4,20052.25,8
+Thermal Management,5,22041.0,8
+Thermal Management,6,21144.875,8
+Thermal Management,7,22551.125,8
+Thermal Management,8,17914.0,8
+Thermal Management,9,21838.375,8
+Thermal Management,10,20963.5,8
+Thermal Management,11,20592.0,7
+Thermal Management,12,17361.571428571428,7

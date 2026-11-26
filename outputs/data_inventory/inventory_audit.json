@@ -1,0 +1,214 @@
+{
+  "project_root": "C:\\Users\\Prajyot\\Downloads\\mks\\demand-forcasting",
+  "data_directory": "C:\\Users\\Prajyot\\Downloads\\mks\\demand-forcasting\\data\\student_data",
+  "expected_files": [
+    "events_calendar.csv",
+    "inventory_stockouts.csv",
+    "macro_indicators.csv",
+    "sample_submission.csv",
+    "sku_master.csv",
+    "test.csv",
+    "train.csv"
+  ],
+  "present_csv_files": [
+    "events_calendar.csv",
+    "inventory_stockouts.csv",
+    "macro_indicators.csv",
+    "sample_submission.csv",
+    "sku_master.csv",
+    "test.csv",
+    "train.csv"
+  ],
+  "unexpected_csv_files": [],
+  "file_inventory": [
+    {
+      "file": "train.csv",
+      "rows": 248248,
+      "columns": 15,
+      "size_bytes": 48834690,
+      "expected_rows": 248248,
+      "row_count_matches_brief": true,
+      "malformed_rows_extra_fields": 0,
+      "date_min": "2019-01-01",
+      "date_max": "2062-10-01",
+      "expected_date_min": "2019-01-01",
+      "expected_date_max": "2026-10-01",
+      "out_of_expected_range_rows": 30,
+      "year_month_mismatch_rows": 276,
+      "year_month_mismatch_examples": "[{\"Date\": \"2019-01\", \"Year\": \"2019\", \"Month\": \"2\", \"Record_ID\": \"CEL-0045443\"}, {\"Date\": \"2019-01\", \"Year\": \"2019\", \"Month\": \"2\", \"Record_ID\": \"CEL-0099411\"}, {\"Date\": \"2019-02\", \"Year\": \"2019\", \"Month\": \"3\", \"Record_ID\": \"CEL-0112351\"}, {\"Date\": \"2019-02\", \"Year\": \"2019\", \"Month\": \"3\", \"Record_ID\": \"CEL-0233623\"}, {\"Date\": \"2019-02\", \"Year\": \"2019\", \"Month\": \"3\", \"Record_ID\": \"CEL-0032570\"}]"
+    },
+    {
+      "file": "test.csv",
+      "rows": 58219,
+      "columns": 10,
+      "size_bytes": 8619404,
+      "expected_rows": 58219,
+      "row_count_matches_brief": true,
+      "malformed_rows_extra_fields": 0,
+      "date_min": "2026-11-01",
+      "date_max": "2028-05-01",
+      "expected_date_min": "2026-11-01",
+      "expected_date_max": "2028-05-01",
+      "out_of_expected_range_rows": 0,
+      "year_month_mismatch_rows": 0,
+      "year_month_mismatch_examples": "[]"
+    },
+    {
+      "file": "macro_indicators.csv",
+      "rows": 114,
+      "columns": 11,
+      "size_bytes": 6709,
+      "expected_rows": 114,
+      "row_count_matches_brief": true,
+      "malformed_rows_extra_fields": 0,
+      "date_min": "2019-01-01",
+      "date_max": "2028-05-01",
+      "expected_date_min": "2019-01-01",
+      "expected_date_max": "2028-05-01",
+      "out_of_expected_range_rows": 0,
+      "year_month_mismatch_rows": 0,
+      "year_month_mismatch_examples": "[]"
+    },
+    {
+      "file": "sku_master.csv",
+      "rows": 601,
+      "columns": 10,
+      "size_bytes": 76253,
+      "expected_rows": 601,
+      "row_count_matches_brief": true,
+      "malformed_rows_extra_fields": 0,
+      "date_min": "",
+      "date_max": "",
+      "expected_date_min": "",
+      "expected_date_max": "",
+      "out_of_expected_range_rows": 0,
+      "year_month_mismatch_rows": 0,
+      "year_month_mismatch_examples": "[]"
+    },
+    {
+      "file": "events_calendar.csv",
+      "rows": 68,
+      "columns": 7,
+      "size_bytes": 6406,
+      "expected_rows": 68,
+      "row_count_matches_brief": true,
+      "malformed_rows_extra_fields": 0,
+      "date_min": "",
+      "date_max": "",
+      "expected_date_min": "",
+      "expected_date_max": "",
+      "out_of_expected_range_rows": 0,
+      "year_month_mismatch_rows": 0,
+      "year_month_mismatch_examples": "[]"
+    },
+    {
+      "file": "inventory_stockouts.csv",
+      "rows": 5830,
+      "columns": 11,
+      "size_bytes": 419781,
+      "expected_rows": 5830,
+      "row_count_matches_brief": true,
+      "malformed_rows_extra_fields": 0,
+      "date_min": "2019-01-01",
+      "date_max": "2026-10-01",
+      "expected_date_min": "",
+      "expected_date_max": "",
+      "out_of_expected_range_rows": 0,
+      "year_month_mismatch_rows": 0,
+      "year_month_mismatch_examples": "[]"
+    },
+    {
+      "file": "sample_submission.csv",
+      "rows": 5,
+      "columns": 4,
+      "size_bytes": 210,
+      "expected_rows": 5,
+      "row_count_matches_brief": true,
+      "malformed_rows_extra_fields": 0,
+      "date_min": "2026-11-01",
+      "date_max": "2027-03-01",
+      "expected_date_min": "",
+      "expected_date_max": "",
+      "out_of_expected_range_rows": 0,
+      "year_month_mismatch_rows": 0,
+      "year_month_mismatch_examples": "[]"
+    }
+  ],
+  "key_uniqueness": [
+    {
+      "file": "train.csv",
+      "key": "Record_ID",
+      "distinct_nonmissing_keys": 244566,
+      "duplicate_key_groups": 3682,
+      "duplicate_extra_rows": 3682,
+      "unique": false
+    },
+    {
+      "file": "train.csv",
+      "key": "Date+SKU_ID+Region",
+      "distinct_nonmissing_keys": 243829,
+      "duplicate_key_groups": 3674,
+      "duplicate_extra_rows": 3674,
+      "unique": false
+    },
+    {
+      "file": "test.csv",
+      "key": "Date+SKU_ID+Region",
+      "distinct_nonmissing_keys": 58219,
+      "duplicate_key_groups": 0,
+      "duplicate_extra_rows": 0,
+      "unique": true
+    },
+    {
+      "file": "macro_indicators.csv",
+      "key": "Date",
+      "distinct_nonmissing_keys": 113,
+      "duplicate_key_groups": 1,
+      "duplicate_extra_rows": 1,
+      "unique": false
+    },
+    {
+      "file": "sku_master.csv",
+      "key": "SKU_ID",
+      "distinct_nonmissing_keys": 601,
+      "duplicate_key_groups": 0,
+      "duplicate_extra_rows": 0,
+      "unique": true
+    },
+    {
+      "file": "events_calendar.csv",
+      "key": "Event_ID",
+      "distinct_nonmissing_keys": 68,
+      "duplicate_key_groups": 0,
+      "duplicate_extra_rows": 0,
+      "unique": true
+    },
+    {
+      "file": "inventory_stockouts.csv",
+      "key": "Date+SKU_ID+Region",
+      "distinct_nonmissing_keys": 5830,
+      "duplicate_key_groups": 0,
+      "duplicate_extra_rows": 0,
+      "unique": true
+    },
+    {
+      "file": "sample_submission.csv",
+      "key": "Date+SKU_ID+Region",
+      "distinct_nonmissing_keys": 5,
+      "duplicate_key_groups": 0,
+      "duplicate_extra_rows": 0,
+      "unique": true
+    }
+  ],
+  "schema_issues": [
+    "train.csv.Date: 30 rows outside the expected month window",
+    "train.csv: 276 Date vs Year/Month mismatches"
+  ],
+  "assumptions": [
+    "Date is authoritative; Year and Month are consistency checks.",
+    "For repeated Record_ID values, latest Load_Timestamp wins during cleaning.",
+    "Missing rows are not zero sales.",
+    "Do not remove duplicate period/SKU/region rows until their cause is investigated.",
+    "This notebook profiles source data and does not modify it."
+  ]
+}

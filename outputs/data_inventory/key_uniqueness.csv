@@ -1,0 +1,9 @@
+file,key,distinct_nonmissing_keys,duplicate_key_groups,duplicate_extra_rows,unique
+train.csv,Record_ID,244566,3682,3682,False
+train.csv,Date+SKU_ID+Region,243829,3674,3674,False
+test.csv,Date+SKU_ID+Region,58219,0,0,True
+macro_indicators.csv,Date,113,1,1,False
+sku_master.csv,SKU_ID,601,0,0,True
+events_calendar.csv,Event_ID,68,0,0,True
+inventory_stockouts.csv,Date+SKU_ID+Region,5830,0,0,True
+sample_submission.csv,Date+SKU_ID+Region,5,0,0,True

@@ -1,0 +1,7 @@
+﻿issue,rows,action
+stockout keys absent from train,41,Added rows with observed shipments from the stockout file; left unknown customer/channel blank.
+train Units_Sold disagrees with stockout Shipped_Units,62,Used Shipped_Units as the observed shipment for these stockout keys; original Units_Sold retained.
+train Units_Sold missing for stockout key,90,"Backfilled observed shipments from Shipped_Units; this is evidence-backed, not zero imputation."
+stockout lost-units arithmetic mismatch,0,Retained source fields and flagged; expected requested + carried-in - shipped - backordered.
+requested units below shipped units,45,Not treated as an error: shipments may include carried-in units from the prior month.
+negative train target without stockout shipment evidence,477,Excluded from observed demand proxy pending anomaly review; did not convert to zero.

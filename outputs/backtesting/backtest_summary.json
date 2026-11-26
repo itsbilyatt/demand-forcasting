@@ -1,0 +1,72 @@
+{
+  "origins": [
+    {
+      "Origin": "2023-09",
+      "Holdout_Start": "2023-10",
+      "Holdout_End": "2025-04",
+      "Holdout_Months": 19,
+      "Rows": 55386,
+      "Cold_Start_Fallback_Rows": 1550
+    },
+    {
+      "Origin": "2025-03",
+      "Holdout_Start": "2025-04",
+      "Holdout_End": "2026-10",
+      "Holdout_Months": 19,
+      "Rows": 56591,
+      "Cold_Start_Fallback_Rows": 292
+    }
+  ],
+  "prediction_rows": 223954,
+  "overall_metrics": [
+    {
+      "Origin": "2023-09",
+      "Model": "seasonal_naive_12",
+      "Rows": 55386,
+      "WAPE": 0.45429494798377,
+      "Bias": -0.08624948463211506,
+      "Actual_Units": 2799430.0,
+      "Forecast_Units": 2557980.6052363184
+    },
+    {
+      "Origin": "2023-09",
+      "Model": "recent_mean_3",
+      "Rows": 55386,
+      "WAPE": 0.5725561654458962,
+      "Bias": -0.09932524172076049,
+      "Actual_Units": 2799430.0,
+      "Forecast_Units": 2521375.9385696515
+    },
+    {
+      "Origin": "2025-03",
+      "Model": "seasonal_naive_12",
+      "Rows": 56591,
+      "WAPE": 0.4682215290100313,
+      "Bias": 0.05702539268023931,
+      "Actual_Units": 2780323.0,
+      "Forecast_Units": 2938872.0108529013
+    },
+    {
+      "Origin": "2025-03",
+      "Model": "recent_mean_3",
+      "Rows": 56591,
+      "WAPE": 0.6716930920862157,
+      "Bias": 0.10778376379994974,
+      "Actual_Units": 2780323.0,
+      "Forecast_Units": 3079996.677519568
+    }
+  ],
+  "fallback_rows_seasonal_naive": 5280,
+  "outputs": "C:\\Users\\Prajyot\\Downloads\\mks\\demand-forcasting\\outputs\\backtesting",
+  "metric_definitions": {
+    "WAPE": "sum(abs(prediction - actual)) / sum(abs(actual)); lower is better.",
+    "Bias": "sum(prediction - actual) / sum(abs(actual)); positive means over-forecast."
+  },
+  "assumptions": [
+    "Validation origins are Sep 2023 and Mar 2025; each has the full 19-month holdout available.",
+    "Seasonal-naive forecasts recurse from prior predictions when the 12-month source falls inside the holdout.",
+    "Recent-mean baseline repeats the mean of the last three observed nonmissing months at the origin.",
+    "Missing targets are excluded from metric denominators, not treated as zero.",
+    "Missing seasonal history falls back to recent series mean, then family-region, family, and global mean."
+  ]
+}

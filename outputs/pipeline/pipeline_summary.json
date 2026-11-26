@@ -1,0 +1,849 @@
+{
+  "project_root": "C:\\Users\\Prajyot\\Downloads\\mks\\demand-forcasting",
+  "stage_seconds": {
+    "data_cleaning": 18.54,
+    "demand_reconstruction": 7.57,
+    "demand_exploration": 29.93,
+    "feature_engineering": 30.72,
+    "baseline_backtesting": 28.92,
+    "global_model_backtesting": 71.55,
+    "model_selection": 1.58,
+    "final_forecast": 43.39,
+    "business_checks": 3.25,
+    "dashboard": 5.89
+  },
+  "results": {
+    "data_cleaning": {
+      "project_root": "C:\\Users\\Prajyot\\Downloads\\mks\\demand-forcasting",
+      "input_directory": "C:\\Users\\Prajyot\\Downloads\\mks\\demand-forcasting\\data\\student_data",
+      "cleaned_output_directory": "C:\\Users\\Prajyot\\Downloads\\mks\\demand-forcasting\\outputs\\cleaned",
+      "quality_report_directory": "C:\\Users\\Prajyot\\Downloads\\mks\\demand-forcasting\\outputs\\data_quality",
+      "price_correction_log": "C:\\Users\\Prajyot\\Downloads\\mks\\demand-forcasting\\outputs\\data_quality\\price_correction_log.csv",
+      "file_metrics": {
+        "train.csv": {
+          "input_rows": 248248,
+          "output_rows": 244566,
+          "record_id_duplicate_groups": 3682,
+          "record_id_duplicate_rows_removed": 3682,
+          "record_id_conflicting_groups": 732,
+          "date_year_month_mismatches": 276,
+          "outside_expected_period_rows": 30,
+          "rows_with_missing_units": 3544,
+          "valid_composite_key_rows": 243829,
+          "valid_composite_key_duplicates": 0,
+          "expected_rows": 248248
+        },
+        "test.csv": {
+          "input_rows": 58219,
+          "output_rows": 58219,
+          "outside_expected_period_rows": 0,
+          "duplicate_forecast_key_rows": 0,
+          "expected_rows": 58219
+        },
+        "sku_master.csv": {
+          "input_rows": 601,
+          "output_rows": 601,
+          "duplicate_sku_id_rows": 0,
+          "expected_rows": 601
+        },
+        "macro_indicators.csv": {
+          "input_rows": 114,
+          "output_rows": 114,
+          "expected_rows": 114
+        },
+        "events_calendar.csv": {
+          "input_rows": 68,
+          "output_rows": 68,
+          "expected_rows": 68
+        },
+        "inventory_stockouts.csv": {
+          "input_rows": 5830,
+          "output_rows": 5830,
+          "expected_rows": 5830
+        },
+        "sample_submission.csv": {
+          "input_rows": 5,
+          "output_rows": 5,
+          "expected_rows": 5
+        }
+      },
+      "issues": [
+        {
+          "file": "sku_master.csv",
+          "type": "missing:EOL_Date",
+          "affected_rows": 592,
+          "severity": "review",
+          "action": "Preserved as missing; do not infer zero or fabricate a value.",
+          "examples": "[]"
+        },
+        {
+          "file": "sku_master.csv",
+          "type": "missing:Replaces_SKU",
+          "affected_rows": 592,
+          "severity": "review",
+          "action": "Preserved as missing; do not infer zero or fabricate a value.",
+          "examples": "[]"
+        },
+        {
+          "file": "train.csv",
+          "type": "missing:Product_Family",
+          "affected_rows": 1252,
+          "severity": "review",
+          "action": "Preserved as missing; do not infer zero or fabricate a value.",
+          "examples": "[]"
+        },
+        {
+          "file": "train.csv",
+          "type": "missing:SKU_Description",
+          "affected_rows": 996,
+          "severity": "review",
+          "action": "Preserved as missing; do not infer zero or fabricate a value.",
+          "examples": "[]"
+        },
+        {
+          "file": "train.csv",
+          "type": "missing:Region",
+          "affected_rows": 745,
+          "severity": "review",
+          "action": "Preserved as missing; do not infer zero or fabricate a value.",
+          "examples": "[]"
+        },
+        {
+          "file": "train.csv",
+          "type": "missing:Units_Sold",
+          "affected_rows": 3362,
+          "severity": "review",
+          "action": "Preserved as missing; do not infer zero or fabricate a value.",
+          "examples": "[]"
+        },
+        {
+          "file": "train.csv",
+          "type": "missing:Revenue_USD",
+          "affected_rows": 383,
+          "severity": "review",
+          "action": "Preserved as missing; do not infer zero or fabricate a value.",
+          "examples": "[]"
+        },
+        {
+          "file": "train.csv",
+          "type": "duplicate:Record_ID_rows",
+          "affected_rows": 7364,
+          "severity": "review",
+          "action": "Kept only the row with the latest Load_Timestamp for each nonblank Record_ID.",
+          "examples": "[]"
+        },
+        {
+          "file": "train.csv",
+          "type": "duplicate:Record_ID_conflicting_groups",
+          "affected_rows": 732,
+          "severity": "review",
+          "action": "Latest timestamp is selected; inspect the retained raw values for material corrections.",
+          "examples": "[]"
+        },
+        {
+          "file": "train.csv",
+          "type": "date_year_month_mismatch",
+          "affected_rows": 276,
+          "severity": "corrected",
+          "action": "Date is authoritative; Year and Month are recomputed from parsed Date.",
+          "examples": "[{\"Date_Raw\": \"2019-01\", \"Year_Raw\": \"2019\", \"Month_Raw\": \"2\", \"Record_ID\": \"CEL-0045443\"}, {\"Date_Raw\": \"2019-01\", \"Year_Raw\": \"2019\", \"Month_Raw\": \"2\", \"Record_ID\": \"CEL-0099411\"}, {\"Date_Raw\": \"2019-02\", \"Year_Raw\": \"2019\", \"Month_Raw\": \"3\", \"Record_ID\": \"CEL-0112351\"}, {\"Date_Raw\": \"2019-02\", \"Year_Raw\": \"2019\", \"Month_Raw\": \"3\", \"Record_ID\": \"CEL-0233623\"}, {\"Date_Raw\": \"2019-02\", \"Year_Raw\": \"2019\", \"Month_Raw\": \"3\", \"Record_ID\": \"CEL-0032570\"}]"
+        },
+        {
+          "file": "train.csv",
+          "type": "date_outside_expected_window",
+          "affected_rows": 30,
+          "severity": "error",
+          "action": "Preserved Date; exclude from historical modeling only after review against source records.",
+          "examples": "[{\"Date_Raw\": \"2062-01\", \"Year_Raw\": \"2026\", \"Month_Raw\": \"1\", \"Record_ID\": \"CEL-0207046\"}, {\"Date_Raw\": \"2062-01\", \"Year_Raw\": \"2026\", \"Month_Raw\": \"1\", \"Record_ID\": \"CEL-0243867\"}, {\"Date_Raw\": \"2062-02\", \"Year_Raw\": \"2026\", \"Month_Raw\": \"2\", \"Record_ID\": \"CEL-0104515\"}, {\"Date_Raw\": \"2062-02\", \"Year_Raw\": \"2026\", \"Month_Raw\": \"2\", \"Record_ID\": \"CEL-0036690\"}, {\"Date_Raw\": \"2062-02\", \"Year_Raw\": \"2026\", \"Month_Raw\": \"2\", \"Record_ID\": \"CEL-0110229\"}]"
+        },
+        {
+          "file": "train.csv",
+          "type": "master_conflict:Business_Unit",
+          "affected_rows": 524,
+          "severity": "review",
+          "action": "Compared with sku_master.csv; conflicts are preserved or corrected only under the documented rule.",
+          "examples": "[{\"SKU_ID\": \"PMP-004\", \"Business_Unit\": \"Advanced Manufacturing\"}, {\"SKU_ID\": \"PMP-004\", \"Business_Unit\": \"Advanced Manufacturing\"}, {\"SKU_ID\": \"PMP-004\", \"Business_Unit\": \"Advanced Manufacturing\"}, {\"SKU_ID\": \"PMP-004\", \"Business_Unit\": \"Advanced Manufacturing\"}, {\"SKU_ID\": \"PMP-004\", \"Business_Unit\": \"Advanced Manufacturing\"}]"
+        },
+        {
+          "file": "train.csv",
+          "type": "missing_or_dash:Units_Sold",
+          "affected_rows": 3544,
+          "severity": "error",
+          "action": "Kept as missing; never replaced with zero because zero means no order.",
+          "examples": "[]"
+        },
+        {
+          "file": "train.csv",
+          "type": "negative_Units_Sold",
+          "affected_rows": 491,
+          "severity": "error",
+          "action": "Preserved the parsed value and flagged for review.",
+          "examples": "[]"
+        },
+        {
+          "file": "train.csv",
+          "type": "unresolved_zero_price",
+          "affected_rows": 10,
+          "severity": "error",
+          "action": "Changed invalid zero price to missing; requires source or event review.",
+          "examples": "[]"
+        },
+        {
+          "file": "train.csv",
+          "type": "price_deviation_from_same_sku_month",
+          "affected_rows": 50,
+          "severity": "review",
+          "action": "Not auto-corrected; review against event-calendar surcharges and source pricing.",
+          "examples": "[{\"Record_ID\": \"CEL-0112973\", \"Date\": \"2019-02\", \"SKU_ID\": \"HYD-019\", \"Region\": \"Europe\", \"Unit_Price_USD_Raw\": \"1436.43\"}, {\"Record_ID\": \"CEL-0089067\", \"Date\": \"2019-05\", \"SKU_ID\": \"ELA-047\", \"Region\": \"Europe\", \"Unit_Price_USD_Raw\": \"484.17\"}, {\"Record_ID\": \"CEL-0203410\", \"Date\": \"2019-07\", \"SKU_ID\": \"PTC-061\", \"Region\": \"India\", \"Unit_Price_USD_Raw\": \"966.8\"}, {\"Record_ID\": \"CEL-0012087\", \"Date\": \"2020-02\", \"SKU_ID\": \"BSS-029\", \"Region\": \"India\", \"Unit_Price_USD_Raw\": \"341.52\"}, {\"Record_ID\": \"CEL-0009682\", \"Date\": \"2020-04\", \"SKU_ID\": \"BSS-023\", \"Region\": \"India\", \"Unit_Price_USD_Raw\": \"486.15\"}]"
+        },
+        {
+          "file": "train.csv",
+          "type": "revenue_not_equal_units_times_price",
+          "affected_rows": 1716,
+          "severity": "corrected",
+          "action": "Recomputed Revenue_USD where Units_Sold and cleaned Unit_Price_USD are available; raw value retained.",
+          "examples": "[{\"Record_ID\": \"CEL-0136542\", \"Units_Sold_Raw\": \"153\", \"Unit_Price_USD_Raw\": \"67308.0\", \"Revenue_USD_Raw\": \"102981.24\"}, {\"Record_ID\": \"CEL-0058508\", \"Units_Sold_Raw\": \"30\", \"Unit_Price_USD_Raw\": \"256.4\", \"Revenue_USD_Raw\": \"6792.0\"}, {\"Record_ID\": \"CEL-0094177\", \"Units_Sold_Raw\": \"790\", \"Unit_Price_USD_Raw\": \"846.81\", \"Revenue_USD_Raw\": \"66897.99\"}, {\"Record_ID\": \"CEL-0025988\", \"Units_Sold_Raw\": \"48\", \"Unit_Price_USD_Raw\": \"26173.0\", \"Revenue_USD_Raw\": \"12563.04\"}, {\"Record_ID\": \"CEL-0075665\", \"Units_Sold_Raw\": \"190\", \"Unit_Price_USD_Raw\": \"1935.22\", \"Revenue_USD_Raw\": \"36769.18\"}]"
+        },
+        {
+          "file": "test.csv",
+          "type": "master_conflict:Business_Unit",
+          "affected_rows": 114,
+          "severity": "review",
+          "action": "Compared with sku_master.csv; conflicts are preserved or corrected only under the documented rule.",
+          "examples": "[{\"SKU_ID\": \"PMP-004\", \"Business_Unit\": \"Advanced Manufacturing\"}, {\"SKU_ID\": \"PMP-004\", \"Business_Unit\": \"Advanced Manufacturing\"}, {\"SKU_ID\": \"PMP-004\", \"Business_Unit\": \"Advanced Manufacturing\"}, {\"SKU_ID\": \"PMP-004\", \"Business_Unit\": \"Advanced Manufacturing\"}, {\"SKU_ID\": \"PMP-004\", \"Business_Unit\": \"Advanced Manufacturing\"}]"
+        },
+        {
+          "file": "macro_indicators.csv",
+          "type": "missing:Vehicle_Inventory_Days",
+          "affected_rows": 1,
+          "severity": "review",
+          "action": "Preserved as missing; do not infer zero or fabricate a value.",
+          "examples": "[]"
+        },
+        {
+          "file": "macro_indicators.csv",
+          "type": "missing:New_Vehicle_Orders_Index",
+          "affected_rows": 1,
+          "severity": "review",
+          "action": "Preserved as missing; do not infer zero or fabricate a value.",
+          "examples": "[]"
+        },
+        {
+          "file": "macro_indicators.csv",
+          "type": "missing:Industrial_Util_Rate_Pct",
+          "affected_rows": 1,
+          "severity": "review",
+          "action": "Preserved as missing; do not infer zero or fabricate a value.",
+          "examples": "[]"
+        },
+        {
+          "file": "macro_indicators.csv",
+          "type": "missing:Fuel_Price_Index",
+          "affected_rows": 1,
+          "severity": "review",
+          "action": "Preserved as missing; do not infer zero or fabricate a value.",
+          "examples": "[]"
+        },
+        {
+          "file": "macro_indicators.csv",
+          "type": "missing:EV_Adoption_Index",
+          "affected_rows": 1,
+          "severity": "review",
+          "action": "Preserved as missing; do not infer zero or fabricate a value.",
+          "examples": "[]"
+        },
+        {
+          "file": "macro_indicators.csv",
+          "type": "duplicate:Date",
+          "affected_rows": 2,
+          "severity": "review",
+          "action": "Exact duplicate rows are removed; conflicting month rows are retained and flagged.",
+          "examples": "[{\"Date\": \"2022-06\"}, {\"Date\": \"2022-06\"}]"
+        },
+        {
+          "file": "events_calendar.csv",
+          "type": "missing:End_Date",
+          "affected_rows": 1,
+          "severity": "review",
+          "action": "Preserved as missing; do not infer zero or fabricate a value.",
+          "examples": "[]"
+        },
+        {
+          "file": "inventory_stockouts.csv",
+          "type": "stockout_fill_rate_mismatch",
+          "affected_rows": 4757,
+          "severity": "review",
+          "action": "Preserved source fill rate; compare with shipped divided by requested plus carried-in.",
+          "examples": "[]"
+        }
+      ],
+      "corrections": [
+        {
+          "file": "train.csv",
+          "type": "deduplicated:Record_ID",
+          "affected_rows": 3682,
+          "severity": "corrected",
+          "action": "Retained the latest Load_Timestamp; source row number breaks timestamp ties.",
+          "examples": "[]"
+        },
+        {
+          "file": "train.csv",
+          "type": "standardized_date:Date",
+          "affected_rows": 9821,
+          "severity": "corrected",
+          "action": "Converted parseable dates to YYYY-MM for monthly data; retained the raw value.",
+          "examples": "[]"
+        },
+        {
+          "file": "train.csv",
+          "type": "recomputed_year_month_from_Date",
+          "affected_rows": 276,
+          "severity": "corrected",
+          "action": "Recomputed Year and Month from the authoritative Date field.",
+          "examples": "[]"
+        },
+        {
+          "file": "train.csv",
+          "type": "standardized:SKU_ID",
+          "affected_rows": 2942,
+          "severity": "corrected",
+          "action": "Normalized separators/casing/zero-padding only when the result exists in sku_master.csv.",
+          "examples": "[]"
+        },
+        {
+          "file": "train.csv",
+          "type": "standardized:Sales_Channel",
+          "affected_rows": 3683,
+          "severity": "corrected",
+          "action": "Applied a case/punctuation-insensitive match to an established canonical label.",
+          "examples": "[]"
+        },
+        {
+          "file": "train.csv",
+          "type": "standardized:Region",
+          "affected_rows": 6117,
+          "severity": "corrected",
+          "action": "Applied a case/punctuation-insensitive match to an established canonical label.",
+          "examples": "[]"
+        },
+        {
+          "file": "train.csv",
+          "type": "filled_from_sku_master:Product_Family",
+          "affected_rows": 1228,
+          "severity": "corrected",
+          "action": "Filled missing product attributes from the matching SKU_ID in sku_master.csv.",
+          "examples": "[]"
+        },
+        {
+          "file": "train.csv",
+          "type": "corrected_from_sku_master:Business_Unit",
+          "affected_rows": 524,
+          "severity": "corrected",
+          "action": "Replaced conflicting Business_Unit with the SKU master value; original retained in *_Raw.",
+          "examples": "[]"
+        },
+        {
+          "file": "train.csv",
+          "type": "filled_from_sku_master:SKU_Description",
+          "affected_rows": 982,
+          "severity": "corrected",
+          "action": "Filled missing product attributes from the matching SKU_ID in sku_master.csv.",
+          "examples": "[]"
+        },
+        {
+          "file": "train.csv",
+          "type": "imputed_zero_price_from_same_sku_month",
+          "affected_rows": 36342,
+          "severity": "corrected",
+          "action": "Replaced zero price only when a positive same-SKU/month peer exists; used the peer median.",
+          "examples": "[]"
+        },
+        {
+          "file": "train.csv",
+          "type": "corrected_price_factor_error",
+          "affected_rows": 949,
+          "severity": "corrected",
+          "action": "Corrected only clear 10x/100x/1000x or reciprocal outliers using the same-SKU/month peer median.",
+          "examples": "[]"
+        },
+        {
+          "file": "train.csv",
+          "type": "reconciled_revenue",
+          "affected_rows": 1716,
+          "severity": "corrected",
+          "action": "Recomputed mismatched revenue from cleaned Units_Sold and Unit_Price_USD; raw revenue retained.",
+          "examples": "[]"
+        },
+        {
+          "file": "test.csv",
+          "type": "corrected_from_sku_master:Business_Unit",
+          "affected_rows": 114,
+          "severity": "corrected",
+          "action": "Replaced conflicting Business_Unit with the SKU master value; original retained in *_Raw.",
+          "examples": "[]"
+        },
+        {
+          "file": "events_calendar.csv",
+          "type": "standardized_date:Start_Date",
+          "affected_rows": 20,
+          "severity": "corrected",
+          "action": "Converted parseable dates to YYYY-MM for monthly data; retained the raw value.",
+          "examples": "[]"
+        },
+        {
+          "file": "events_calendar.csv",
+          "type": "standardized_date:End_Date",
+          "affected_rows": 20,
+          "severity": "corrected",
+          "action": "Converted parseable dates to YYYY-MM for monthly data; retained the raw value.",
+          "examples": "[]"
+        }
+      ],
+      "assumptions": [
+        "Date is authoritative; Year and Month are recomputed from parseable Date values.",
+        "Duplicate Record_ID rows keep the latest Load_Timestamp; source row breaks timestamp ties.",
+        "Missing Units_Sold is not zero and remains missing; literal zero continues to mean no order.",
+        "Missing family, business unit, and SKU description may be filled from the matching SKU master row.",
+        "Conflicting Business_Unit values are corrected to sku_master.csv; original values are retained in *_Raw columns.",
+        "Price corrections are limited to same-SKU/month evidence and clear powers-of-ten errors; uncertain outliers are flagged.",
+        "Revenue is recomputed as Units_Sold times cleaned Unit_Price_USD when both are available; source value is retained in Revenue_USD_Raw.",
+        "Rows outside the stated history window are retained and flagged, not silently deleted.",
+        "Rows with unresolved composite-key duplicates are retained for review, not arbitrarily aggregated."
+      ]
+    },
+    "demand_reconstruction": {
+      "input_train_rows": 244566,
+      "stockout_records": 5830,
+      "stockout_records_matched_to_train": 5789,
+      "stockout_records_without_train_row": 41,
+      "inserted_stockout_rows": 41,
+      "train_targets_missing_for_stockout_keys": 90,
+      "train_targets_disagreeing_with_shipped_units": 62,
+      "negative_train_targets_without_stockout_evidence": 477,
+      "valid_unique_period_sku_region_keys_after_reconstruction": 243870,
+      "lost_units_formula_mismatches": 0,
+      "requested_less_than_shipped_rows_due_possible_carry_in": 45,
+      "stockout_demand_rows": 5830,
+      "shipment_proxy_rows": 238777,
+      "observed_shipments_total": 12053210.0,
+      "unconstrained_demand_total": 12147975.0,
+      "outputs": {
+        "demand_panel": "C:\\Users\\Prajyot\\Downloads\\mks\\demand-forcasting\\outputs\\demand_reconstruction\\train_with_reconstructed_demand.csv",
+        "stockout_join_audit": "C:\\Users\\Prajyot\\Downloads\\mks\\demand-forcasting\\outputs\\demand_reconstruction\\stockout_join_audit.csv",
+        "stockout_quality_report": "C:\\Users\\Prajyot\\Downloads\\mks\\demand-forcasting\\outputs\\demand_reconstruction\\stockout_quality_report.csv"
+      },
+      "assumptions": [
+        "Requested_Units is current-month customer demand; Carried_In_Units is prior-month demand and is not added to current demand.",
+        "Shipped_Units is the authoritative observed shipment for listed stockout keys and should match train Units_Sold.",
+        "For unlisted keys, observed shipments are only a demand proxy; the stockout file is incomplete, so no-stockout status is not inferred.",
+        "Rows found in stockout data but absent from train are added with known key, request, and shipment values; missing customer/channel are not fabricated.",
+        "Raw/cleaned Units_Sold remains alongside Units_Sold_Observed and Unconstrained_Demand."
+      ]
+    },
+    "demand_exploration": {
+      "history_rows_in_expected_window": 244577,
+      "history_rows_outside_expected_window": 30,
+      "sku_region_series": 3501,
+      "series_with_zero_positive_demand_months": 42,
+      "demand_class_counts": {
+        "smooth": 2063,
+        "intermittent": 703,
+        "erratic": 376,
+        "insufficient_positive_history": 260,
+        "lumpy": 99
+      },
+      "customer_or_channel_switches": 5241,
+      "anomaly_register_rows": 11055,
+      "anomaly_counts": {
+        "listed_stockout": 5830,
+        "missing_observed_shipments": 3930,
+        "high_demand_spike": 774,
+        "negative_raw_units": 491,
+        "outside_history_window": 30
+      },
+      "outputs": "C:\\Users\\Prajyot\\Downloads\\mks\\demand-forcasting\\outputs\\demand_exploration"
+    },
+    "feature_engineering": {
+      "train_feature_rows": 239923,
+      "test_feature_rows": 58219,
+      "dropped_history_rows_missing_key_or_outside_window": 767,
+      "feature_columns": [
+        "SKU_ID",
+        "Region",
+        "Date_Period",
+        "Date",
+        "Unconstrained_Demand",
+        "Product_Family",
+        "Sales_Channel",
+        "Customer_Name",
+        "Stockout_Record_Found",
+        "Demand_Confidence",
+        "Business_Unit",
+        "SKU_Description",
+        "lag_1",
+        "lag_2",
+        "lag_3",
+        "lag_6",
+        "lag_12",
+        "rolling_mean_3",
+        "rolling_observed_count_3",
+        "rolling_mean_6",
+        "rolling_observed_count_6",
+        "rolling_mean_12",
+        "rolling_observed_count_12",
+        "zero_share_prior_12",
+        "Month",
+        "Year",
+        "Month_Sin",
+        "Month_Cos",
+        "Forecast_Horizon",
+        "Is_Forecast_Period",
+        "Known_Scoped_Event_Count",
+        "ISM_Manufacturing_PMI_lag_1",
+        "Auto_Production_YoY_Pct_lag_1",
+        "Vehicle_Inventory_Days_lag_1",
+        "Raw_Material_Cost_Index_lag_1",
+        "New_Vehicle_Orders_Index_lag_1",
+        "Industrial_Util_Rate_Pct_lag_1",
+        "Fuel_Price_Index_lag_1",
+        "EV_Adoption_Index_lag_1",
+        "ISM_Manufacturing_PMI_lag_3",
+        "Auto_Production_YoY_Pct_lag_3",
+        "Vehicle_Inventory_Days_lag_3",
+        "Raw_Material_Cost_Index_lag_3",
+        "New_Vehicle_Orders_Index_lag_3",
+        "Industrial_Util_Rate_Pct_lag_3",
+        "Fuel_Price_Index_lag_3",
+        "EV_Adoption_Index_lag_3",
+        "Months_Since_Launch",
+        "Months_To_EOL",
+        "Is_Launched",
+        "Is_Before_EOL",
+        "ADI",
+        "CV2_Positive_Demand",
+        "Intermittency_Class"
+      ],
+      "lag_features": [
+        "lag_1",
+        "lag_2",
+        "lag_3",
+        "lag_6",
+        "lag_12"
+      ],
+      "macro_features": [
+        "ISM_Manufacturing_PMI_lag_1",
+        "ISM_Manufacturing_PMI_lag_3",
+        "Auto_Production_YoY_Pct_lag_1",
+        "Auto_Production_YoY_Pct_lag_3",
+        "Vehicle_Inventory_Days_lag_1",
+        "Vehicle_Inventory_Days_lag_3",
+        "Raw_Material_Cost_Index_lag_1",
+        "Raw_Material_Cost_Index_lag_3",
+        "New_Vehicle_Orders_Index_lag_1",
+        "New_Vehicle_Orders_Index_lag_3",
+        "Industrial_Util_Rate_Pct_lag_1",
+        "Industrial_Util_Rate_Pct_lag_3",
+        "Fuel_Price_Index_lag_1",
+        "Fuel_Price_Index_lag_3",
+        "EV_Adoption_Index_lag_1",
+        "EV_Adoption_Index_lag_3"
+      ],
+      "leakage_controls": [
+        "Demand lags and rolling features are shifted by one calendar month on a complete series-month grid.",
+        "Missing months and missing target values remain missing; they are not converted to zero.",
+        "Macro features use only 1- and 3-month lags, not same-month realized indicators.",
+        "Future forecast features use history available through Oct 2026 and known test metadata.",
+        "Forecast horizon is measured from the Oct 2026 forecast origin."
+      ],
+      "outputs": {
+        "train_features": "C:\\Users\\Prajyot\\Downloads\\mks\\demand-forcasting\\outputs\\features\\train_features.csv",
+        "test_features": "C:\\Users\\Prajyot\\Downloads\\mks\\demand-forcasting\\outputs\\features\\test_features.csv"
+      }
+    },
+    "baseline_backtesting": {
+      "origins": [
+        {
+          "Origin": "2023-09",
+          "Holdout_Start": "2023-10",
+          "Holdout_End": "2025-04",
+          "Holdout_Months": 19,
+          "Rows": 55386,
+          "Cold_Start_Fallback_Rows": 1550
+        },
+        {
+          "Origin": "2025-03",
+          "Holdout_Start": "2025-04",
+          "Holdout_End": "2026-10",
+          "Holdout_Months": 19,
+          "Rows": 56591,
+          "Cold_Start_Fallback_Rows": 292
+        }
+      ],
+      "prediction_rows": 223954,
+      "overall_metrics": [
+        {
+          "Origin": "2023-09",
+          "Model": "seasonal_naive_12",
+          "Rows": 55386,
+          "WAPE": 0.45429494798377,
+          "Bias": -0.08624948463211506,
+          "Actual_Units": 2799430.0,
+          "Forecast_Units": 2557980.6052363184
+        },
+        {
+          "Origin": "2023-09",
+          "Model": "recent_mean_3",
+          "Rows": 55386,
+          "WAPE": 0.5725561654458962,
+          "Bias": -0.09932524172076049,
+          "Actual_Units": 2799430.0,
+          "Forecast_Units": 2521375.9385696515
+        },
+        {
+          "Origin": "2025-03",
+          "Model": "seasonal_naive_12",
+          "Rows": 56591,
+          "WAPE": 0.4682215290100313,
+          "Bias": 0.05702539268023931,
+          "Actual_Units": 2780323.0,
+          "Forecast_Units": 2938872.0108529013
+        },
+        {
+          "Origin": "2025-03",
+          "Model": "recent_mean_3",
+          "Rows": 56591,
+          "WAPE": 0.6716930920862157,
+          "Bias": 0.10778376379994974,
+          "Actual_Units": 2780323.0,
+          "Forecast_Units": 3079996.677519568
+        }
+      ],
+      "fallback_rows_seasonal_naive": 5280,
+      "outputs": "C:\\Users\\Prajyot\\Downloads\\mks\\demand-forcasting\\outputs\\backtesting",
+      "metric_definitions": {
+        "WAPE": "sum(abs(prediction - actual)) / sum(abs(actual)); lower is better.",
+        "Bias": "sum(prediction - actual) / sum(abs(actual)); positive means over-forecast."
+      },
+      "assumptions": [
+        "Validation origins are Sep 2023 and Mar 2025; each has the full 19-month holdout available.",
+        "Seasonal-naive forecasts recurse from prior predictions when the 12-month source falls inside the holdout.",
+        "Recent-mean baseline repeats the mean of the last three observed nonmissing months at the origin.",
+        "Missing targets are excluded from metric denominators, not treated as zero.",
+        "Missing seasonal history falls back to recent series mean, then family-region, family, and global mean."
+      ]
+    },
+    "global_model_backtesting": {
+      "origins": [
+        {
+          "Origin": "2023-09",
+          "Holdout_Start": "2023-10",
+          "Holdout_End": "2025-04",
+          "Holdout_Months": 19,
+          "Training_Rows": 130923,
+          "Evaluation_Rows": 55386
+        },
+        {
+          "Origin": "2025-03",
+          "Holdout_Start": "2025-04",
+          "Holdout_End": "2026-10",
+          "Holdout_Months": 19,
+          "Training_Rows": 183332,
+          "Evaluation_Rows": 56591
+        }
+      ],
+      "prediction_rows": 223954,
+      "models": [
+        "global_poisson_hgbr",
+        "croston_sba"
+      ],
+      "metric_definitions": {
+        "WAPE": "sum(abs(prediction - actual)) / sum(abs(actual)); lower is better.",
+        "Bias": "sum(prediction - actual) / sum(abs(actual)); positive means over-forecast."
+      },
+      "global_model_features": [
+        "lag_1",
+        "lag_2",
+        "lag_3",
+        "lag_6",
+        "lag_12",
+        "rolling_mean_3",
+        "rolling_mean_6",
+        "rolling_mean_12",
+        "rolling_observed_count_3",
+        "rolling_observed_count_6",
+        "rolling_observed_count_12",
+        "zero_share_prior_12",
+        "Month",
+        "Month_Sin",
+        "Month_Cos",
+        "Known_Scoped_Event_Count",
+        "Months_Since_Launch",
+        "Months_To_EOL",
+        "Is_Launched",
+        "Is_Before_EOL",
+        "ISM_Manufacturing_PMI_lag_1",
+        "ISM_Manufacturing_PMI_lag_3",
+        "Auto_Production_YoY_Pct_lag_1",
+        "Auto_Production_YoY_Pct_lag_3",
+        "Vehicle_Inventory_Days_lag_1",
+        "Vehicle_Inventory_Days_lag_3",
+        "Raw_Material_Cost_Index_lag_1",
+        "Raw_Material_Cost_Index_lag_3",
+        "New_Vehicle_Orders_Index_lag_1",
+        "New_Vehicle_Orders_Index_lag_3",
+        "Industrial_Util_Rate_Pct_lag_1",
+        "Industrial_Util_Rate_Pct_lag_3",
+        "Fuel_Price_Index_lag_1",
+        "Fuel_Price_Index_lag_3",
+        "EV_Adoption_Index_lag_1",
+        "EV_Adoption_Index_lag_3",
+        "Product_Family",
+        "Region"
+      ],
+      "leakage_controls": [
+        "Each model is trained only on rows dated on or before its validation origin.",
+        "The global model recursively uses its own prior forecasts during the 19-month holdout.",
+        "Target-derived contemporaneous fields and full-history intermittency labels are excluded from predictors.",
+        "Intermittency classes for slicing are recalculated using only demand observed by each origin.",
+        "Missing demand remains unknown and is excluded from evaluation rather than set to zero."
+      ],
+      "outputs": "C:\\Users\\Prajyot\\Downloads\\mks\\demand-forcasting\\outputs\\global_model"
+    },
+    "model_selection": {
+      "selected_method": "validated_blend",
+      "global_model_weight": 0.45,
+      "seasonal_naive_weight": 0.55,
+      "selection_method": "For each held-out origin, choose the WAPE-minimizing weight on all other origins; production weight is the mean of those out-of-origin selected weights.",
+      "leave_one_origin_out_results": [
+        {
+          "Origin": "2023-09",
+          "Calibration_Origins": "2025-03",
+          "Selected_Global_Weight": 0.45,
+          "Selected_Seasonal_Weight": 0.55,
+          "Held_Out_WAPE": 0.42199012789501844,
+          "Held_Out_Bias": -0.1356067746215848,
+          "Seasonal_WAPE": 0.45429494798377,
+          "Global_WAPE": 0.47086928908978654
+        },
+        {
+          "Origin": "2025-03",
+          "Calibration_Origins": "2023-09",
+          "Selected_Global_Weight": 0.45,
+          "Selected_Seasonal_Weight": 0.55,
+          "Held_Out_WAPE": 0.4279265251793393,
+          "Held_Out_Bias": 0.04343285858385017,
+          "Seasonal_WAPE": 0.4682215290100313,
+          "Global_WAPE": 0.47384857658635154
+        }
+      ],
+      "pooled_metrics": [
+        {
+          "Origin": "2023-09",
+          "Model": "validated_blend",
+          "Rows": 55386,
+          "WAPE": 0.42199012789501844,
+          "Bias": -0.1356067746215848,
+          "Actual_Units": 2799430.0,
+          "Forecast_Units": 2419808.326921097
+        },
+        {
+          "Origin": "2025-03",
+          "Model": "validated_blend",
+          "Rows": 56591,
+          "WAPE": 0.4279265251793393,
+          "Bias": 0.04343285858385017,
+          "Actual_Units": 2780323.0,
+          "Forecast_Units": 2901080.375676426
+        }
+      ],
+      "prediction_rows": 111977,
+      "outputs": "C:\\Users\\Prajyot\\Downloads\\mks\\demand-forcasting\\outputs\\model_selection"
+    },
+    "final_forecast": {
+      "selected_method": "validated_blend",
+      "seasonal_naive_weight": 0.55,
+      "global_model_weight": 0.45,
+      "selection_basis": "For each held-out origin, choose the WAPE-minimizing weight on all other origins; production weight is the mean of those out-of-origin selected weights.",
+      "history_origin": "2026-10",
+      "forecast_rows": 58219,
+      "unique_forecast_keys": 58219,
+      "forecast_start": "2026-11",
+      "forecast_end": "2028-05",
+      "method_counts": {
+        "blend_seasonal_naive_12_global_hgbr": 35763,
+        "blend_recursive_seasonal_naive_12_global_hgbr": 21406,
+        "blend_recent_series_mean_3_global_hgbr": 933,
+        "blend_replacement_PMP-003_transfer_1.0_global_hgbr": 48,
+        "blend_replacement_PTC-005_transfer_1.0_global_hgbr": 45,
+        "blend_replacement_THM-001_transfer_1.0_global_hgbr": 24
+      },
+      "replacement_transfer_assumption": "For a launched replacement SKU with no own demand history, transfer the replaced SKU-region seasonal forecast at a 1.0 ratio until the successor has its own history.",
+      "price_revenue_assumption": "Revenue estimates use the latest positive observed SKU price through Oct 2026 and apply explicitly listed future global price-change events; no demand elasticity is assumed.",
+      "submission_path": "C:\\Users\\Prajyot\\Downloads\\mks\\demand-forcasting\\outputs\\submission\\final_submission.csv",
+      "audit_path": "C:\\Users\\Prajyot\\Downloads\\mks\\demand-forcasting\\outputs\\submission\\forecast_audit.csv"
+    },
+    "business_checks": {
+      "forecast_rows": 58219,
+      "forecast_months": 19,
+      "total_p50_units": 2945055.733608702,
+      "sum_of_sku_p10_units": 1047702.6178055557,
+      "sum_of_sku_p90_units": 4866781.385492995,
+      "zero_forecast_rows": 4602,
+      "prelaunch_rows": 0,
+      "prelaunch_forecast_units": 0,
+      "post_eol_rows": 156,
+      "post_eol_forecast_units": 0,
+      "event_exposed_rows": 4611,
+      "event_exposed_forecast_units": 151194,
+      "hierarchy_reconciles": true,
+      "leave_one_origin_out_interval_coverage": [
+        {
+          "Origin": "2023-09",
+          "Rows": 55386,
+          "Empirical_Coverage": 0.7186473115949878,
+          "Mean_Interval_Width": 53.07705753992649
+        },
+        {
+          "Origin": "2025-03",
+          "Rows": 56591,
+          "Empirical_Coverage": 0.8961672350727148,
+          "Mean_Interval_Width": 82.30958035053821
+        }
+      ],
+      "procurement_note": "No on-hand inventory, open purchase orders, lead times, or service-level inputs are present; reorder quantities cannot be responsibly calculated from demand alone.",
+      "assumptions": [
+        "P50 is the selected rolling-origin-validated seasonal-naive/global-model blend.",
+        "P10/P90 are approximate empirical intervals from normalized rolling-origin residual quantiles by family and horizon bucket.",
+        "Leave-one-origin-out coverage is reported to avoid evaluating each origin on its own calibration residuals.",
+        "Monthly/family/region P10 and P90 columns are sums of SKU-level interval bounds, not aggregate-level quantiles.",
+        "Forecasts and intervals are forced to zero before launch and after the inclusive EOL month.",
+        "Known events are exposed for review; demand effects are not applied without validated causal evidence."
+      ],
+      "outputs": "C:\\Users\\Prajyot\\Downloads\\mks\\demand-forcasting\\outputs\\business_checks"
+    },
+    "dashboard": {
+      "dashboard_path": "C:\\Users\\Prajyot\\Downloads\\mks\\demand-forcasting\\outputs\\dashboard\\index.html",
+      "forecast_rows_embedded": 58219,
+      "forecast_months": 19,
+      "history_rows_embedded": 240647,
+      "anomaly_rows_embedded": 11055,
+      "price_corrections_previewed": 500,
+      "shared_filters": [
+        "Product_Family",
+        "SKU_ID",
+        "Region",
+        "Sales_Channel",
+        "Customer_Name"
+      ],
+      "views": [
+        "executive_overview",
+        "data_health",
+        "demand_explorer",
+        "anomaly_monitor",
+        "forecast_accuracy"
+      ],
+      "bytes": 22225297,
+      "external_dependencies": 0
+    }
+  }
+}

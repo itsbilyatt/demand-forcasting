@@ -1,0 +1,29 @@
+{
+  "input_train_rows": 244566,
+  "stockout_records": 5830,
+  "stockout_records_matched_to_train": 5789,
+  "stockout_records_without_train_row": 41,
+  "inserted_stockout_rows": 41,
+  "train_targets_missing_for_stockout_keys": 90,
+  "train_targets_disagreeing_with_shipped_units": 62,
+  "negative_train_targets_without_stockout_evidence": 477,
+  "valid_unique_period_sku_region_keys_after_reconstruction": 243870,
+  "lost_units_formula_mismatches": 0,
+  "requested_less_than_shipped_rows_due_possible_carry_in": 45,
+  "stockout_demand_rows": 5830,
+  "shipment_proxy_rows": 238777,
+  "observed_shipments_total": 12053210.0,
+  "unconstrained_demand_total": 12147975.0,
+  "outputs": {
+    "demand_panel": "C:\\Users\\Prajyot\\Downloads\\mks\\demand-forcasting\\outputs\\demand_reconstruction\\train_with_reconstructed_demand.csv",
+    "stockout_join_audit": "C:\\Users\\Prajyot\\Downloads\\mks\\demand-forcasting\\outputs\\demand_reconstruction\\stockout_join_audit.csv",
+    "stockout_quality_report": "C:\\Users\\Prajyot\\Downloads\\mks\\demand-forcasting\\outputs\\demand_reconstruction\\stockout_quality_report.csv"
+  },
+  "assumptions": [
+    "Requested_Units is current-month customer demand; Carried_In_Units is prior-month demand and is not added to current demand.",
+    "Shipped_Units is the authoritative observed shipment for listed stockout keys and should match train Units_Sold.",
+    "For unlisted keys, observed shipments are only a demand proxy; the stockout file is incomplete, so no-stockout status is not inferred.",
+    "Rows found in stockout data but absent from train are added with known key, request, and shipment values; missing customer/channel are not fabricated.",
+    "Raw/cleaned Units_Sold remains alongside Units_Sold_Observed and Unconstrained_Demand."
+  ]
+}

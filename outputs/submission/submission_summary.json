@@ -1,0 +1,23 @@
+{
+  "selected_method": "validated_blend",
+  "seasonal_naive_weight": 0.55,
+  "global_model_weight": 0.45,
+  "selection_basis": "For each held-out origin, choose the WAPE-minimizing weight on all other origins; production weight is the mean of those out-of-origin selected weights.",
+  "history_origin": "2026-10",
+  "forecast_rows": 58219,
+  "unique_forecast_keys": 58219,
+  "forecast_start": "2026-11",
+  "forecast_end": "2028-05",
+  "method_counts": {
+    "blend_seasonal_naive_12_global_hgbr": 35763,
+    "blend_recursive_seasonal_naive_12_global_hgbr": 21406,
+    "blend_recent_series_mean_3_global_hgbr": 933,
+    "blend_replacement_PMP-003_transfer_1.0_global_hgbr": 48,
+    "blend_replacement_PTC-005_transfer_1.0_global_hgbr": 45,
+    "blend_replacement_THM-001_transfer_1.0_global_hgbr": 24
+  },
+  "replacement_transfer_assumption": "For a launched replacement SKU with no own demand history, transfer the replaced SKU-region seasonal forecast at a 1.0 ratio until the successor has its own history.",
+  "price_revenue_assumption": "Revenue estimates use the latest positive observed SKU price through Oct 2026 and apply explicitly listed future global price-change events; no demand elasticity is assumed.",
+  "submission_path": "C:\\Users\\Prajyot\\Downloads\\mks\\demand-forcasting\\outputs\\submission\\final_submission.csv",
+  "audit_path": "C:\\Users\\Prajyot\\Downloads\\mks\\demand-forcasting\\outputs\\submission\\forecast_audit.csv"
+}

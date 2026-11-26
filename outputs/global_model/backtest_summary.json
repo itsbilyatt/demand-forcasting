@@ -1,0 +1,77 @@
+{
+  "origins": [
+    {
+      "Origin": "2023-09",
+      "Holdout_Start": "2023-10",
+      "Holdout_End": "2025-04",
+      "Holdout_Months": 19,
+      "Training_Rows": 130923,
+      "Evaluation_Rows": 55386
+    },
+    {
+      "Origin": "2025-03",
+      "Holdout_Start": "2025-04",
+      "Holdout_End": "2026-10",
+      "Holdout_Months": 19,
+      "Training_Rows": 183332,
+      "Evaluation_Rows": 56591
+    }
+  ],
+  "prediction_rows": 223954,
+  "models": [
+    "global_poisson_hgbr",
+    "croston_sba"
+  ],
+  "metric_definitions": {
+    "WAPE": "sum(abs(prediction - actual)) / sum(abs(actual)); lower is better.",
+    "Bias": "sum(prediction - actual) / sum(abs(actual)); positive means over-forecast."
+  },
+  "global_model_features": [
+    "lag_1",
+    "lag_2",
+    "lag_3",
+    "lag_6",
+    "lag_12",
+    "rolling_mean_3",
+    "rolling_mean_6",
+    "rolling_mean_12",
+    "rolling_observed_count_3",
+    "rolling_observed_count_6",
+    "rolling_observed_count_12",
+    "zero_share_prior_12",
+    "Month",
+    "Month_Sin",
+    "Month_Cos",
+    "Known_Scoped_Event_Count",
+    "Months_Since_Launch",
+    "Months_To_EOL",
+    "Is_Launched",
+    "Is_Before_EOL",
+    "ISM_Manufacturing_PMI_lag_1",
+    "ISM_Manufacturing_PMI_lag_3",
+    "Auto_Production_YoY_Pct_lag_1",
+    "Auto_Production_YoY_Pct_lag_3",
+    "Vehicle_Inventory_Days_lag_1",
+    "Vehicle_Inventory_Days_lag_3",
+    "Raw_Material_Cost_Index_lag_1",
+    "Raw_Material_Cost_Index_lag_3",
+    "New_Vehicle_Orders_Index_lag_1",
+    "New_Vehicle_Orders_Index_lag_3",
+    "Industrial_Util_Rate_Pct_lag_1",
+    "Industrial_Util_Rate_Pct_lag_3",
+    "Fuel_Price_Index_lag_1",
+    "Fuel_Price_Index_lag_3",
+    "EV_Adoption_Index_lag_1",
+    "EV_Adoption_Index_lag_3",
+    "Product_Family",
+    "Region"
+  ],
+  "leakage_controls": [
+    "Each model is trained only on rows dated on or before its validation origin.",
+    "The global model recursively uses its own prior forecasts during the 19-month holdout.",
+    "Target-derived contemporaneous fields and full-history intermittency labels are excluded from predictors.",
+    "Intermittency classes for slicing are recalculated using only demand observed by each origin.",
+    "Missing demand remains unknown and is excluded from evaluation rather than set to zero."
+  ],
+  "outputs": "C:\\Users\\Prajyot\\Downloads\\mks\\demand-forcasting\\outputs\\global_model"
+}

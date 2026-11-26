@@ -1,0 +1,39 @@
+{
+  "forecast_rows": 58219,
+  "forecast_months": 19,
+  "total_p50_units": 2945055.733608702,
+  "sum_of_sku_p10_units": 1047702.6178055557,
+  "sum_of_sku_p90_units": 4866781.385492995,
+  "zero_forecast_rows": 4602,
+  "prelaunch_rows": 0,
+  "prelaunch_forecast_units": 0,
+  "post_eol_rows": 156,
+  "post_eol_forecast_units": 0,
+  "event_exposed_rows": 4611,
+  "event_exposed_forecast_units": 151194,
+  "hierarchy_reconciles": true,
+  "leave_one_origin_out_interval_coverage": [
+    {
+      "Origin": "2023-09",
+      "Rows": 55386,
+      "Empirical_Coverage": 0.7186473115949878,
+      "Mean_Interval_Width": 53.07705753992649
+    },
+    {
+      "Origin": "2025-03",
+      "Rows": 56591,
+      "Empirical_Coverage": 0.8961672350727148,
+      "Mean_Interval_Width": 82.30958035053821
+    }
+  ],
+  "procurement_note": "No on-hand inventory, open purchase orders, lead times, or service-level inputs are present; reorder quantities cannot be responsibly calculated from demand alone.",
+  "assumptions": [
+    "P50 is the selected rolling-origin-validated seasonal-naive/global-model blend.",
+    "P10/P90 are approximate empirical intervals from normalized rolling-origin residual quantiles by family and horizon bucket.",
+    "Leave-one-origin-out coverage is reported to avoid evaluating each origin on its own calibration residuals.",
+    "Monthly/family/region P10 and P90 columns are sums of SKU-level interval bounds, not aggregate-level quantiles.",
+    "Forecasts and intervals are forced to zero before launch and after the inclusive EOL month.",
+    "Known events are exposed for review; demand effects are not applied without validated causal evidence."
+  ],
+  "outputs": "C:\\Users\\Prajyot\\Downloads\\mks\\demand-forcasting\\outputs\\business_checks"
+}

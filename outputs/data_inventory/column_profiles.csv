@@ -1,0 +1,69 @@
+file,column,inferred_type,nonempty_values,missing_values,missing_pct,invalid_date_values,noncanonical_date_values,date_min,date_max,sample_values
+train.csv,Record_ID,text,248248,0,0.0,0,0,,,CEL-0112726 | CEL-0088383 | CEL-0181333
+train.csv,Date,date,248248,0,0.0,0,8295,2019-01-01,2062-10-01,2019-01 | 2019-01-01 | 01/2019
+train.csv,Year,integer,248248,0,0.0,0,0,,,2019 | 2020 | 2021
+train.csv,Month,integer,248248,0,0.0,0,0,,,1 | 2 | 3
+train.csv,Product_Family,text,246996,1252,0.5043,0,0,,,Hydraulic Systems | Electrical Assemblies | Powertrain Components
+train.csv,Business_Unit,text,248248,0,0.0,0,0,,,Fluid Control Group | Electronics & Controls | Power & Drive Systems
+train.csv,SKU_ID,text,248248,0,0.0,0,0,,,HYD-018 | ELA-046 | PTC-009
+train.csv,SKU_Description,text,247252,996,0.4012,0,0,,,Heavy-Duty 70 mm Pressure Control Valve | Industrial 100 mm Alternator Regulator | Industrial 100 mm Transmission Gear Assembly
+train.csv,Customer_Name,text,248248,0,0.0,0,0,,,Vantara Auto | Nexon Motor Group | Solaris Automotive
+train.csv,Sales_Channel,text,248248,0,0.0,0,0,,,Tier-1 Distributor | Direct OEM | Aftermarket
+train.csv,Region,text,247503,745,0.3001,0,0,,,Latin America | North America | Europe
+train.csv,Units_Sold,mixed-number/text,244886,3362,1.3543,0,0,,,10 | 58 | 41
+train.csv,Unit_Price_USD,number,248248,0,0.0,0,0,,,645.66 | 1731.56 | 1247.81
+train.csv,Revenue_USD,number,247865,383,0.1543,0,0,,,6456.6 | 100430.48 | 51160.21
+train.csv,Load_Timestamp,date,248248,0,0.0,0,0,2019-02-01,2026-11-23,2019-02-01 01:00:54 | 2019-02-01 01:01:22 | 2019-02-01 01:01:51
+test.csv,Date,date,58219,0,0.0,0,0,2026-11-01,2028-05-01,2026-11 | 2026-12 | 2027-01
+test.csv,Year,integer,58219,0,0.0,0,0,,,2026 | 2027 | 2028
+test.csv,Month,integer,58219,0,0.0,0,0,,,11 | 12 | 1
+test.csv,Product_Family,text,58219,0,0.0,0,0,,,Brake & Safety Systems | Chassis & Structural | Electrical Assemblies
+test.csv,Business_Unit,text,58219,0,0.0,0,0,,,Safety & Compliance | Advanced Manufacturing | Electronics & Controls
+test.csv,SKU_ID,text,58219,0,0.0,0,0,,,BSS-001 | BSS-002 | BSS-003
+test.csv,SKU_Description,text,58219,0,0.0,0,0,,,Industrial 100 mm Disc Brake Caliper Assembly | Compact 12 mm ABS Actuator Module | Standard 25 mm Brake Pad Set
+test.csv,Customer_Name,text,58219,0,0.0,0,0,,,Solaris Automotive | Quantum Drive Systems | Crestline Manufacturing
+test.csv,Sales_Channel,text,58219,0,0.0,0,0,,,Tier-1 Distributor | Direct OEM | Aftermarket
+test.csv,Region,text,58219,0,0.0,0,0,,,North America | Europe | Asia Pacific
+macro_indicators.csv,Date,date,114,0,0.0,0,0,2019-01-01,2028-05-01,2019-01 | 2019-02 | 2019-03
+macro_indicators.csv,Year,integer,114,0,0.0,0,0,,,2019 | 2020 | 2021
+macro_indicators.csv,Month,integer,114,0,0.0,0,0,,,1 | 2 | 3
+macro_indicators.csv,ISM_Manufacturing_PMI,number,114,0,0.0,0,0,,,54.0 | 52.9 | 52.7
+macro_indicators.csv,Auto_Production_YoY_Pct,number,114,0,0.0,0,0,,,-0.015 | -0.023 | -0.032
+macro_indicators.csv,Vehicle_Inventory_Days,number,113,1,0.8772,0,0,,,68.0 | 67.9 | 69.4
+macro_indicators.csv,Raw_Material_Cost_Index,number,114,0,0.0,0,0,,,91.7 | 93.1 | 95.0
+macro_indicators.csv,New_Vehicle_Orders_Index,number,113,1,0.8772,0,0,,,98.0 | 96.8 | 94.7
+macro_indicators.csv,Industrial_Util_Rate_Pct,number,113,1,0.8772,0,0,,,79.5 | 79.4 | 79.0
+macro_indicators.csv,Fuel_Price_Index,number,113,1,0.8772,0,0,,,82.0 | 83.0 | 83.6
+macro_indicators.csv,EV_Adoption_Index,number,113,1,0.8772,0,0,,,40.0 | 40.3 | 40.8
+sku_master.csv,SKU_ID,text,601,0,0.0,0,0,,,BSS-001 | BSS-002 | BSS-003
+sku_master.csv,Product_Family,text,601,0,0.0,0,0,,,Brake & Safety Systems | Chassis & Structural | Electrical Assemblies
+sku_master.csv,Business_Unit,text,601,0,0.0,0,0,,,Safety & Compliance | Advanced Manufacturing | Electronics & Controls
+sku_master.csv,SKU_Description,text,601,0,0.0,0,0,,,Industrial 100 mm Disc Brake Caliper Assembly | Compact 12 mm ABS Actuator Module | Standard 25 mm Brake Pad Set
+sku_master.csv,Size_Class,text,601,0,0.0,0,0,,,Industrial 100 | Compact 12 | Standard 25
+sku_master.csv,Powertrain_Application,text,601,0,0.0,0,0,,,Universal | EV | ICE
+sku_master.csv,Launch_Date,date,601,0,0.0,0,0,2009-01-01,2027-10-01,2018-05 | 2017-01 | 2014-03
+sku_master.csv,EOL_Date,date,9,592,98.5025,0,0,2021-06-01,2027-12-01,2023-06 | 2024-09 | 2027-08
+sku_master.csv,Replaces_SKU,text,9,592,98.5025,0,0,,,ELA-014 | HYD-020 | PMP-017
+sku_master.csv,Lifecycle_Status,text,601,0,0.0,0,0,,,Active | Discontinued | EOL Announced
+events_calendar.csv,Event_ID,text,68,0,0.0,0,0,,,EV-001 | EV-002 | EV-003
+events_calendar.csv,Start_Date,date,68,0,0.0,0,0,2019-01-01,2028-08-01,2019-01 | 2019-02-05 | 2019-05-06
+events_calendar.csv,End_Date,date,67,1,1.4706,0,0,2019-01-01,2028-08-01,2019-01 | 2019-02-14 | 2019-06-04
+events_calendar.csv,Scope_Type,text,68,0,0.0,0,0,,,Global | Region | Product_Family
+events_calendar.csv,Scope_Value,text,68,0,0.0,0,0,,,All | Asia Pacific | Middle East & Africa
+events_calendar.csv,Event_Type,text,68,0,0.0,0,0,,,Price Change | Holiday | Corporate
+events_calendar.csv,Description,text,68,0,0.0,0,0,,,Annual list-price increase of about 2.0% effective 1 January | Lunar New Year holiday period | Ramadan
+inventory_stockouts.csv,Date,date,5830,0,0.0,0,0,2019-01-01,2026-10-01,2019-01 | 2019-02 | 2019-03
+inventory_stockouts.csv,SKU_ID,text,5830,0,0.0,0,0,,,BSS-053 | BSS-083 | CSS-036
+inventory_stockouts.csv,Region,text,5830,0,0.0,0,0,,,Latin America | India | Europe
+inventory_stockouts.csv,Requested_Units,integer,5830,0,0.0,0,0,,,43 | 72 | 105
+inventory_stockouts.csv,Carried_In_Units,integer,5830,0,0.0,0,0,,,0 | 4 | 16
+inventory_stockouts.csv,Shipped_Units,integer,5830,0,0.0,0,0,,,14 | 37 | 53
+inventory_stockouts.csv,Backordered_Units,integer,5830,0,0.0,0,0,,,11 | 14 | 20
+inventory_stockouts.csv,Lost_Units,integer,5830,0,0.0,0,0,,,18 | 21 | 32
+inventory_stockouts.csv,Fill_Rate_Pct,number,5830,0,0.0,0,0,,,33.5 | 51.8 | 50.7
+inventory_stockouts.csv,Stockout_Days,integer,5830,0,0.0,0,0,,,20 | 14 | 15
+inventory_stockouts.csv,Reason,text,5830,0,0.0,0,0,,,Logistics delay | Tooling breakdown | Supplier quality hold
+sample_submission.csv,Date,date,5,0,0.0,0,0,2026-11-01,2027-03-01,2026-11 | 2026-12 | 2027-01
+sample_submission.csv,SKU_ID,text,5,0,0.0,0,0,,,BSS-001
+sample_submission.csv,Region,text,5,0,0.0,0,0,,,North America
+sample_submission.csv,Units_Sold_Forecast,integer,5,0,0.0,0,0,,,50
