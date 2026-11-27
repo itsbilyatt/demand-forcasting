@@ -86,6 +86,9 @@ artifact is a standalone HTML file with no server-side dependencies.
 The deployment workflow rebuilds the complete pipeline and publishes
 `outputs/dashboard/index.html` automatically.
 
+For a branch-based Pages configuration publishing `main` from `/(root)`, the root
+`index.html` redirects to the generated dashboard at `outputs/dashboard/index.html`.
+
 ## Model and interpretation
 
 The selected final method is a 55% seasonal-naive / 45% global Poisson HGB blend. The global weight is selected by leave-one-origin-out tuning on the two 19-month rolling origins. Both held-out WAPEs improved over the seasonal-naive and standalone global forecasts; the validation report retains the per-origin results and bias. Forecasts and uncertainty bounds are zero before launch and after the inclusive EOL month. Launched replacement SKUs without their own demand history use their predecessor's forecast as an explicit 1.0 transfer assumption.
