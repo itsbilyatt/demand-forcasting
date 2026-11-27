@@ -46,5 +46,5 @@
     }
   ],
   "prediction_rows": 111977,
-  "outputs": "C:\\Users\\Prajyot\\Downloads\\mks\\demand-forcasting\\outputs\\model_selection"
+  "outputs": "/workspaces/demand-forcasting/outputs/model_selection"
 }

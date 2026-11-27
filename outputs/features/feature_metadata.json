@@ -91,7 +91,7 @@
     "Forecast horizon is measured from the Oct 2026 forecast origin."
   ],
   "outputs": {
-    "train_features": "C:\\Users\\Prajyot\\Downloads\\mks\\demand-forcasting\\outputs\\features\\train_features.csv",
-    "test_features": "C:\\Users\\Prajyot\\Downloads\\mks\\demand-forcasting\\outputs\\features\\test_features.csv"
+    "train_features": "/workspaces/demand-forcasting/outputs/features/train_features.csv",
+    "test_features": "/workspaces/demand-forcasting/outputs/features/test_features.csv"
   }
 }

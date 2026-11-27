@@ -35,5 +35,5 @@
     "Forecasts and intervals are forced to zero before launch and after the inclusive EOL month.",
     "Known events are exposed for review; demand effects are not applied without validated causal evidence."
   ],
-  "outputs": "C:\\Users\\Prajyot\\Downloads\\mks\\demand-forcasting\\outputs\\business_checks"
+  "outputs": "/workspaces/demand-forcasting/outputs/business_checks"
 }

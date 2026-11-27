@@ -57,7 +57,7 @@
     }
   ],
   "fallback_rows_seasonal_naive": 5280,
-  "outputs": "C:\\Users\\Prajyot\\Downloads\\mks\\demand-forcasting\\outputs\\backtesting",
+  "outputs": "/workspaces/demand-forcasting/outputs/backtesting",
   "metric_definitions": {
     "WAPE": "sum(abs(prediction - actual)) / sum(abs(actual)); lower is better.",
     "Bias": "sum(prediction - actual) / sum(abs(actual)); positive means over-forecast."

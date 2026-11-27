@@ -18,6 +18,6 @@
   },
   "replacement_transfer_assumption": "For a launched replacement SKU with no own demand history, transfer the replaced SKU-region seasonal forecast at a 1.0 ratio until the successor has its own history.",
   "price_revenue_assumption": "Revenue estimates use the latest positive observed SKU price through Oct 2026 and apply explicitly listed future global price-change events; no demand elasticity is assumed.",
-  "submission_path": "C:\\Users\\Prajyot\\Downloads\\mks\\demand-forcasting\\outputs\\submission\\final_submission.csv",
-  "audit_path": "C:\\Users\\Prajyot\\Downloads\\mks\\demand-forcasting\\outputs\\submission\\forecast_audit.csv"
+  "submission_path": "/workspaces/demand-forcasting/outputs/submission/final_submission.csv",
+  "audit_path": "/workspaces/demand-forcasting/outputs/submission/forecast_audit.csv"
 }

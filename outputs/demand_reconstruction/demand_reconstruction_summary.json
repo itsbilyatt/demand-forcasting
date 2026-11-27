@@ -15,9 +15,9 @@
   "observed_shipments_total": 12053210.0,
   "unconstrained_demand_total": 12147975.0,
   "outputs": {
-    "demand_panel": "C:\\Users\\Prajyot\\Downloads\\mks\\demand-forcasting\\outputs\\demand_reconstruction\\train_with_reconstructed_demand.csv",
-    "stockout_join_audit": "C:\\Users\\Prajyot\\Downloads\\mks\\demand-forcasting\\outputs\\demand_reconstruction\\stockout_join_audit.csv",
-    "stockout_quality_report": "C:\\Users\\Prajyot\\Downloads\\mks\\demand-forcasting\\outputs\\demand_reconstruction\\stockout_quality_report.csv"
+    "demand_panel": "/workspaces/demand-forcasting/outputs/demand_reconstruction/train_with_reconstructed_demand.csv",
+    "stockout_join_audit": "/workspaces/demand-forcasting/outputs/demand_reconstruction/stockout_join_audit.csv",
+    "stockout_quality_report": "/workspaces/demand-forcasting/outputs/demand_reconstruction/stockout_quality_report.csv"
   },
   "assumptions": [
     "Requested_Units is current-month customer demand; Carried_In_Units is prior-month demand and is not added to current demand.",

@@ -1,24 +1,24 @@
 {
-  "project_root": "C:\\Users\\Prajyot\\Downloads\\mks\\demand-forcasting",
+  "project_root": "/workspaces/demand-forcasting",
   "stage_seconds": {
-    "data_cleaning": 18.54,
-    "demand_reconstruction": 7.57,
-    "demand_exploration": 29.93,
-    "feature_engineering": 30.72,
-    "baseline_backtesting": 28.92,
-    "global_model_backtesting": 71.55,
-    "model_selection": 1.58,
-    "final_forecast": 43.39,
-    "business_checks": 3.25,
-    "dashboard": 5.89
+    "data_cleaning": 19.75,
+    "demand_reconstruction": 10.27,
+    "demand_exploration": 32.09,
+    "feature_engineering": 32.97,
+    "baseline_backtesting": 27.9,
+    "global_model_backtesting": 89.77,
+    "model_selection": 2.17,
+    "final_forecast": 48.2,
+    "business_checks": 3.95,
+    "dashboard": 5.7
   },
   "results": {
     "data_cleaning": {
-      "project_root": "C:\\Users\\Prajyot\\Downloads\\mks\\demand-forcasting",
-      "input_directory": "C:\\Users\\Prajyot\\Downloads\\mks\\demand-forcasting\\data\\student_data",
-      "cleaned_output_directory": "C:\\Users\\Prajyot\\Downloads\\mks\\demand-forcasting\\outputs\\cleaned",
-      "quality_report_directory": "C:\\Users\\Prajyot\\Downloads\\mks\\demand-forcasting\\outputs\\data_quality",
-      "price_correction_log": "C:\\Users\\Prajyot\\Downloads\\mks\\demand-forcasting\\outputs\\data_quality\\price_correction_log.csv",
+      "project_root": "/workspaces/demand-forcasting",
+      "input_directory": "/workspaces/demand-forcasting/data/student_data",
+      "cleaned_output_directory": "/workspaces/demand-forcasting/outputs/cleaned",
+      "quality_report_directory": "/workspaces/demand-forcasting/outputs/data_quality",
+      "price_correction_log": "/workspaces/demand-forcasting/outputs/data_quality/price_correction_log.csv",
       "file_metrics": {
         "train.csv": {
           "input_rows": 248248,
@@ -428,9 +428,9 @@
       "observed_shipments_total": 12053210.0,
       "unconstrained_demand_total": 12147975.0,
       "outputs": {
-        "demand_panel": "C:\\Users\\Prajyot\\Downloads\\mks\\demand-forcasting\\outputs\\demand_reconstruction\\train_with_reconstructed_demand.csv",
-        "stockout_join_audit": "C:\\Users\\Prajyot\\Downloads\\mks\\demand-forcasting\\outputs\\demand_reconstruction\\stockout_join_audit.csv",
-        "stockout_quality_report": "C:\\Users\\Prajyot\\Downloads\\mks\\demand-forcasting\\outputs\\demand_reconstruction\\stockout_quality_report.csv"
+        "demand_panel": "/workspaces/demand-forcasting/outputs/demand_reconstruction/train_with_reconstructed_demand.csv",
+        "stockout_join_audit": "/workspaces/demand-forcasting/outputs/demand_reconstruction/stockout_join_audit.csv",
+        "stockout_quality_report": "/workspaces/demand-forcasting/outputs/demand_reconstruction/stockout_quality_report.csv"
       },
       "assumptions": [
         "Requested_Units is current-month customer demand; Carried_In_Units is prior-month demand and is not added to current demand.",
@@ -461,7 +461,7 @@
         "negative_raw_units": 491,
         "outside_history_window": 30
       },
-      "outputs": "C:\\Users\\Prajyot\\Downloads\\mks\\demand-forcasting\\outputs\\demand_exploration"
+      "outputs": "/workspaces/demand-forcasting/outputs/demand_exploration"
     },
     "feature_engineering": {
       "train_feature_rows": 239923,
@@ -556,8 +556,8 @@
         "Forecast horizon is measured from the Oct 2026 forecast origin."
       ],
       "outputs": {
-        "train_features": "C:\\Users\\Prajyot\\Downloads\\mks\\demand-forcasting\\outputs\\features\\train_features.csv",
-        "test_features": "C:\\Users\\Prajyot\\Downloads\\mks\\demand-forcasting\\outputs\\features\\test_features.csv"
+        "train_features": "/workspaces/demand-forcasting/outputs/features/train_features.csv",
+        "test_features": "/workspaces/demand-forcasting/outputs/features/test_features.csv"
       }
     },
     "baseline_backtesting": {
@@ -619,7 +619,7 @@
         }
       ],
       "fallback_rows_seasonal_naive": 5280,
-      "outputs": "C:\\Users\\Prajyot\\Downloads\\mks\\demand-forcasting\\outputs\\backtesting",
+      "outputs": "/workspaces/demand-forcasting/outputs/backtesting",
       "metric_definitions": {
         "WAPE": "sum(abs(prediction - actual)) / sum(abs(actual)); lower is better.",
         "Bias": "sum(prediction - actual) / sum(abs(actual)); positive means over-forecast."
@@ -707,7 +707,7 @@
         "Intermittency classes for slicing are recalculated using only demand observed by each origin.",
         "Missing demand remains unknown and is excluded from evaluation rather than set to zero."
       ],
-      "outputs": "C:\\Users\\Prajyot\\Downloads\\mks\\demand-forcasting\\outputs\\global_model"
+      "outputs": "/workspaces/demand-forcasting/outputs/global_model"
     },
     "model_selection": {
       "selected_method": "validated_blend",
@@ -757,7 +757,7 @@
         }
       ],
       "prediction_rows": 111977,
-      "outputs": "C:\\Users\\Prajyot\\Downloads\\mks\\demand-forcasting\\outputs\\model_selection"
+      "outputs": "/workspaces/demand-forcasting/outputs/model_selection"
     },
     "final_forecast": {
       "selected_method": "validated_blend",
@@ -779,8 +779,8 @@
       },
       "replacement_transfer_assumption": "For a launched replacement SKU with no own demand history, transfer the replaced SKU-region seasonal forecast at a 1.0 ratio until the successor has its own history.",
       "price_revenue_assumption": "Revenue estimates use the latest positive observed SKU price through Oct 2026 and apply explicitly listed future global price-change events; no demand elasticity is assumed.",
-      "submission_path": "C:\\Users\\Prajyot\\Downloads\\mks\\demand-forcasting\\outputs\\submission\\final_submission.csv",
-      "audit_path": "C:\\Users\\Prajyot\\Downloads\\mks\\demand-forcasting\\outputs\\submission\\forecast_audit.csv"
+      "submission_path": "/workspaces/demand-forcasting/outputs/submission/final_submission.csv",
+      "audit_path": "/workspaces/demand-forcasting/outputs/submission/forecast_audit.csv"
     },
     "business_checks": {
       "forecast_rows": 58219,
@@ -819,10 +819,10 @@
         "Forecasts and intervals are forced to zero before launch and after the inclusive EOL month.",
         "Known events are exposed for review; demand effects are not applied without validated causal evidence."
       ],
-      "outputs": "C:\\Users\\Prajyot\\Downloads\\mks\\demand-forcasting\\outputs\\business_checks"
+      "outputs": "/workspaces/demand-forcasting/outputs/business_checks"
     },
     "dashboard": {
-      "dashboard_path": "C:\\Users\\Prajyot\\Downloads\\mks\\demand-forcasting\\outputs\\dashboard\\index.html",
+      "dashboard_path": "/workspaces/demand-forcasting/outputs/dashboard/index.html",
       "forecast_rows_embedded": 58219,
       "forecast_months": 19,
       "history_rows_embedded": 240647,
@@ -842,7 +842,7 @@
         "anomaly_monitor",
         "forecast_accuracy"
       ],
-      "bytes": 22225297,
+      "bytes": 22224677,
       "external_dependencies": 0
     }
   }

@@ -1,9 +1,9 @@
 {
-  "project_root": "C:\\Users\\Prajyot\\Downloads\\mks\\demand-forcasting",
-  "input_directory": "C:\\Users\\Prajyot\\Downloads\\mks\\demand-forcasting\\data\\student_data",
-  "cleaned_output_directory": "C:\\Users\\Prajyot\\Downloads\\mks\\demand-forcasting\\outputs\\cleaned",
-  "quality_report_directory": "C:\\Users\\Prajyot\\Downloads\\mks\\demand-forcasting\\outputs\\data_quality",
-  "price_correction_log": "C:\\Users\\Prajyot\\Downloads\\mks\\demand-forcasting\\outputs\\data_quality\\price_correction_log.csv",
+  "project_root": "/workspaces/demand-forcasting",
+  "input_directory": "/workspaces/demand-forcasting/data/student_data",
+  "cleaned_output_directory": "/workspaces/demand-forcasting/outputs/cleaned",
+  "quality_report_directory": "/workspaces/demand-forcasting/outputs/data_quality",
+  "price_correction_log": "/workspaces/demand-forcasting/outputs/data_quality/price_correction_log.csv",
   "file_metrics": {
     "train.csv": {
       "input_rows": 248248,

@@ -73,5 +73,5 @@
     "Intermittency classes for slicing are recalculated using only demand observed by each origin.",
     "Missing demand remains unknown and is excluded from evaluation rather than set to zero."
   ],
-  "outputs": "C:\\Users\\Prajyot\\Downloads\\mks\\demand-forcasting\\outputs\\global_model"
+  "outputs": "/workspaces/demand-forcasting/outputs/global_model"
 }
